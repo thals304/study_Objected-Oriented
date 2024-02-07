@@ -6,7 +6,9 @@ import java.util.Scanner;
 // 24.02.07 time
 /*
  * today 소감문
- * 
+ * 이미 다른 방법들로 많이 풀어본 문제라서 큰 어려움은 없었지만,
+ * 내가 약한 예외처리 문제 7번에서 예외처리를 위한 추가 변수를 쓰는 건
+ * 떠올랐지만 그걸 제대로 사용하지는 못한 것 같아 더 익숙함과 꼼꼼함이 필요한 것 같다.
  * */
 
 class Ex04_연습문제1 {
@@ -90,20 +92,16 @@ public class ClassEx04_연습1 {
 		
 		System.out.print("학번 입력 : ");
 		grade = scan.nextInt();
-		score = 0;
 		int check = 1;
 		for (int i  = 0; i < object.hakbuns.length; i++) {
 			if (grade == object.hakbuns[i]) {
-				check = 1;
-				score = object.scores[i];
-				break;	// break를 안하면 안되는 것 같음
+				check = i;
 			}
-			else check = -1;
 		}
 		if (check == -1) {
 			System.out.println("해당 학번은 존재하지 않습니다");
 		}
-		else System.out.println("성적 : " + score + "점");
+		else System.out.println("성적 : " + object.scores[check] + "점");
 		
 		// 문제8) 1등 학생의 학번과 성적 출력
 		// 정답8) 1003번(92점)
