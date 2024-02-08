@@ -48,11 +48,20 @@ public class ClassEx10_연습1 {
 			 System.out.println("====맘스터치====");
 			 System.out.println("[1] 주문 ");
 			 System.out.println("[2] 영수증 출력 ");
+			 System.out.print("선택 : ");
 			 int choose = scan.nextInt();
 			 
 			 if (choose == 1) {
-				 
-			 }
+				 System.out.println("====메뉴====");
+				 System.out.println("[1] 치즈버거  2500");
+				 System.out.println("[2] 불고기버거 3800");
+				 System.out.println("[3] 감자튀김  1500");
+				 System.out.println("[4] 콜  라   1000");
+				 // 각각 몇 개 살 지 for문 돌면서 입력하도록 하면 될 듯
+				 for(int i = 0; i < object.menuNames.length; i++) {
+					 
+				 }
+						 }
 			 else if (choose == 2) {
 				 
 			 }

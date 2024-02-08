@@ -16,10 +16,32 @@ package step6_02.method;
  *  
  * */
 
+class MethodEx {
+	
+	// 메서드 정의(define)
+	void printMenu() {
+		
+		System.out.println("================");
+		System.out.println("1. 로그인");
+		System.out.println("2. 로그아웃");
+		System.out.println("3. 개인정보조회");
+		System.out.println("4. 개인정보수정");
+		System.out.println("5. 회원탈퇴");
+		System.out.println("=================\n");
+		
+		return;
+	}
+}
 
 public class MethodEx01 {
 
 	public static void main(String[] args) {
+		
+		MethodEx object = new MethodEx();
+		
+		// 메서드 호출 (call) : 정의된 메서드가 동작함
+		// 객체.메서드명(); 형태로 호출하여 사용
+		object.printMenu();
 		
 	}
 
