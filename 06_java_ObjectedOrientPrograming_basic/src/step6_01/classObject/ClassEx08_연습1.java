@@ -40,7 +40,7 @@ public class ClassEx08_연습1 {
 	 Ex08_연습문제1 object = new Ex08_연습문제1();
 	 
 	 // 2의 위치
-	 int element = 5;
+	 int element = 4;
 	 
 	 while (true) {
 		 System.out.println(Arrays.toString(object.game));
@@ -55,18 +55,18 @@ public class ClassEx08_연습1 {
 		 
 		 if (menu == 1) {
 			 
-				 if (object.game[element - 2] == 1) {	// 2가 인덱스 0 위치에 있고 왼쪽으로 한 칸 이동해야 할 때 index out of bound 로 
+				 if (object.game[element - 1] == 1) {	// 2가 인덱스 0 위치에 있고 왼쪽으로 한 칸 이동해야 할 때 index out of bound 로 
 					 System.out.println("벽입니다. 이동이 불가합니다.");
 				 }
 				 else {
-					 if (element == 1) {	// 배열 좌측 끝일 때 2의 위치는 인덱스 8으로 가야함
+					 if (element == 0) {	// 배열 좌측 끝일 때 2의 위치는 인덱스 8으로 가야함
 						 object.game[object.game.length - 1] = 2;
 						 object.game[0] = 0;
-						 element = 9;
+						 element = 8;
 					 }
 					 else {
-						 object.game[element - 2] = 2;
-						 object.game[element - 1] = 0;
+						 object.game[element - 1] = 2;
+						 object.game[element] = 0;
 						 element --;
 					 }
 				 }
@@ -75,18 +75,18 @@ public class ClassEx08_연습1 {
 		 }
 		 else if (menu == 2) {
 			
-				 if (object.game[element] == 1) {	// 2가 인덱스 9 위치에 있고 오른쪽으로 한 칸 해야 할 때 out of index로 
+				 if (object.game[element + 1] == 1) {	// 2가 인덱스 9 위치에 있고 오른쪽으로 한 칸 해야 할 때 out of index로 
 					 System.out.println("벽입니다. 이동이 불가합니다.");
 				 }
 				 else {
-					 if (element == 1) {	// 배열 우측 끝일 때 2의 위치는 인덱스 0으로 가야함
+					 if (element == 8) {	// 배열 우측 끝일 때 2의 위치는 인덱스 0으로 가야함
 						 object.game[object.game.length - 1] = 0;
 						 object.game[0] = 2;
-						 element = 1;
+						 element = 0;
 					 }
 					 else {
-						 object.game[element - 1] = 0;
-						 object.game[element] = 2;
+						 object.game[element] = 0;
+						 object.game[element + 1] = 2;
 						 element ++;
 					 }
 				 }
@@ -97,14 +97,14 @@ public class ClassEx08_연습1 {
 			 System.out.print("[1] 왼쪽 격파 [2] 오른쪽 격파 : ");
 			 int choose = scan.nextInt();
 			 if (choose == 1) {
-				 object.game[element - 2] = 2;
-				 object.game[element - 1] = 0;
+				 object.game[element - 1] = 2;
+				 object.game[element] = 0;
 				 element --;
 			 }
 			 else if (choose == 2) {
 				 // 한 칸 우측이 1일 경우
-				 object.game[element - 1] = 0;
-				 object.game[element] = 2;
+				 object.game[element] = 0;
+				 object.game[element + 1] = 2;
 				 element ++;
 			 }
 			 
