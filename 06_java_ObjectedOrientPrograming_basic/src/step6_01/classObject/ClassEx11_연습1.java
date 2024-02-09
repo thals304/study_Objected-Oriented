@@ -1,4 +1,10 @@
 package step6_01.classObject;
+// 24.02. time 
+/*
+ * today 소감문
+ * 자료구조를 다 까먹었는데 이 문제를 또 보게 되서 당황했고
+ * 어떻게 풀 지를 고민하면서 다시 자료구조 공부를 하고 돌아왔다.
+ * */
 /*
  * # ATM[4단계] : 전체 기능구현
  * 1. 회원가입
@@ -22,8 +28,8 @@ package step6_01.classObject;
 
 import java.util.Scanner;
 
-/*
-class Ex11 {
+
+class Ex11_연습문제1 {
 
 	String[] arAcc = new String[5];
 	String[] arPw  = new String[5];
@@ -33,18 +39,18 @@ class Ex11 {
 	int identifier = -1;
 	
 }
-*/
+
 
 public class ClassEx11_연습1 {
 	public static void main(String[] args) {
 
 		Scanner scan = new Scanner(System.in);
 		
-//		Ex11 e = new Ex11();
+		Ex11_연습문제1 e = new Ex11_연습문제1();
 		
 		while (true) {
 			
-//			System.out.println("[Mega Bank]");
+			System.out.println("[Mega Bank]");
 			System.out.println("[1]회원가입");
 			System.out.println("[2]회원탈퇴");
 			System.out.println("[3]로그인");
@@ -57,8 +63,12 @@ public class ClassEx11_연습1 {
 			System.out.print("메뉴 선택 : ");
 			int sel = scan.nextInt();
 			
-			if (sel == 1) {}
-			else if (sel == 2) {}
+			if (sel == 1) {
+				// 자료구조 - 추가
+			}
+			else if (sel == 2) {
+				// 자료구조 - 삭제
+			}
 			else if (sel == 3) {}
 			else if (sel == 4) {}
 			else if (sel == 5) {}
