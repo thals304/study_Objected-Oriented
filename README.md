@@ -11,7 +11,7 @@
 ## 🏃 과정
 
 - 자바 + 프로그래밍 훈련, 디버깅, 소스 관리 ( 형성, 버전 관리 )
-- 자바 ( 객체 지향 ) + **프로그래밍 훈련**
+- **자바 ( 객체 지향 ) + 프로그래밍 훈련**
     
     cs ( 컴퓨터 사이언스: 네트워크, 리눅스, 자료구조 )
     
@@ -242,3 +242,123 @@
 - **return**
     - 데이터를 반환한다. return 데이터는 오직 1개이다.
     - 메서드를 종료한다.
+
+- **this**
+    - **객체 (오브젝트, 인스턴스) 자신**
+    
+    ```java
+    class Unit {
+    	
+    	int shield = 60;
+    	int hp = 100;
+    	
+    	void printData() {
+    		System.out.println("this : " + this);
+    		// this는 생략이 가능하고 기본적으로 생략되어 있다.
+    		System.out.println("hp: " + this.hp);
+    		System.out.println("sheild: " + this.shield);
+    		System.out.println();
+    	}
+    }
+    
+    public class ClassEx14 {
+    
+    	public static void main(String[] args) {
+    		
+    		Unit unit1 = new Unit(); // unit1은 주소(링크)
+    		unit1.shield = 0;
+    		unit1.hp = 0;
+    		System.out.println("unit1 : " + unit1);	// unit1일 때는 this는 unit1의 주소와 같음
+    		unit1.printData();
+    		
+    		Unit unit2 = new Unit(); // unit2은 주소(링크)
+    		unit2.shield = 1;
+    		System.out.println("unit2 : " + unit2); // unit1일 때는 this는 unit1의 주소와 같음
+    		unit2.printData();
+    		
+    		Unit unit3 = new Unit();
+    		System.out.println("unit3 : " + unit3);
+    		unit3.printData();
+    		
+    
+    	}
+    
+    }
+    ```
+    
+
+- **static**
+    - **정적 필드(static 변수)와 정적 메소드(static 메소드)는 객체(인스턴스)에 소속된 멤버가 아니라 클래스에 고정된 멤버이다.
+    → 클래스명.static변수명 , 클래스명.static메소드(); 형태로 사용 가능**
+    - static 키워드를 통해 생성된 정적멤버들은 heap영역이 아닌 static영역에 할당한다.
+    - static 영역에 할당된 메모리는 모든 객체가 공유하여 하나의 멤버를 어디서든지 참조할 수 있다.
+    - Garbage Collector의 관리 영역 밖에 존재하기에 static영역에 있는 멤버들은 프로그램의 종료시까지 메모리가 할당된 채로 존재한다.
+    
+    ```java
+    class Character {
+    	
+    	int hp = 100;  // this.hp 
+        static int moveSpeed = 10;
+    	
+    	void printData() {
+    		System.out.println("hp : " + hp);
+    		System.out.println("moveSpeed : " + moveSpeed);
+    		System.out.println();
+    	}
+    	
+    	static void speedUp() {	// 메소드도 static 사용 가능
+    		moveSpeed += 10000;
+    	}
+    }
+    
+    public class ClassEx15 {
+    
+    	public static void main(String[] args) {
+    
+    		Character c1 = new Character();
+    		c1.hp = 0;	
+    		// 클래스명.static변수명으로 사용
+    		Character.moveSpeed = 100; // c1.moveSpeed = 100 ;
+    		
+    		Character c2 = new Character();
+    		c2.hp = 50;
+    		Character.moveSpeed += 9999; // c2.moveSpeed += 9999;	// c1에 의해 c1 ~ c3의 moveSpeed가 100 이었다가 c2에 의해 9999가 더해짐 
+    		
+    		Character c3 = new Character();
+    		// 클래스명.static메서드(); 형태로 사용
+    		Character.speedUp(); // c3.speedUp();
+    		
+    		c1.printData();
+    		c2.printData();
+    		c3.printData();
+    		
+    		// static 사용 예시
+    		System.out.println(Math.PI);
+    		System.out.println(Math.abs(-12));
+    		
+    		try {
+    			Thread.sleep(3000);
+    			System.out.println("끝");
+    		} catch (InterruptedException e) {
+    			e.printStackTrace();
+    		}
+    	}
+    
+    }
+    ```
+    
+    **+)  클래스에서 다양한 변수 (꼭 구분하기!)**
+    
+    ```java
+    // 다양한 변수의 종류
+    class VariableEx{
+    	
+    	int a; 			// 객체, 인스턴스 변수 (객체에서 사용하는 변수)
+    	static int b;   // 정적, 클래스 변수 (클래스 이름으로 사용하는 변수)
+    	
+    	void test(int c) {	// 매개변수, 파라메타, 아규먼트 (메서드로 전달되는 데이터를 받을 때 사용하는 변수)
+    		int d;  	    // 지역변수 (메서드 내부에서만 사용하는 변수)
+    	}
+    	
+    }
+    ```
