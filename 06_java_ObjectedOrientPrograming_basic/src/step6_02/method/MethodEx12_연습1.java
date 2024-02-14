@@ -64,11 +64,12 @@ class Ex12_연습문제1 {
 	
 	// 5. 문자열에 특정 문자의 위치를 리턴하는 myIndexOf 메서드를 만드시오.
 	int myIndexOf_1(String data , String word) {	
-		int idx = 0;
-		char[] charWord = word.toCharArray();
+		// 6번 문제에서 사용해야 할 toCharArray 문법으로 품
+		char[] charWord = word.toCharArray();	
 		
+		int idx = 0;
 		for (int i = 0; i < data.length(); i++) {
-			if (data.charAt(i) == charWord[0]) {	// 이게 내 최선인데
+			if (data.charAt(i) == charWord[0]) {	// 이게 내 최선인데 이렇게 해도 되는건가?
 				idx = i;
 			}
 		}
@@ -93,7 +94,7 @@ class Ex12_연습문제1 {
 	// 예시)                      > char[] 변수 = 문자열.toCharArray();
 	char myCharAt(String data , int index) {
 		char[] charData = data.toCharArray();
-		char word = 0; // 문자 / 문자열은 어떻게 초기값 해줘야 되지?
+		char word = 0; // 문자 / 문자열 은 어떻게 초기값 해줘야 되지? 문자 : 0, 문자열 : null
 		for (int i = 0; i < charData.length; i++) {
 			if (charData[index] == charData[i]) {
 				word = charData[i];
@@ -133,19 +134,19 @@ class Ex12_연습문제1 {
 				cnt++;
 				}
 		}
-		String[] mysplit = new String[cnt + 1];	// 배열 크기를 어떻게 하지? sep 개수 + 1로 넣기
+		String[] mysplits = new String[cnt + 1];	// 배열 크기를 어떻게 하지? sep 개수 + 1로 넣기
 		
 		int startIdx = 0;
 		int arrayIdx = 0;
-		/*for (int i = 0; i < data.length(); i++) {
+		for (int i = 0; i < data.length(); i++) {
 			if (data.charAt(i) == charSep[0]) {
-				mysplit[arrayIdx] = data.substring(startIdx, i); // 현재까지의 문자열 추출해 배열에 저장
+				mysplits[arrayIdx] = data.substring(startIdx, i); // 현재까지의 문자열 추출해 배열에 저장
 				startIdx = i + 1; // sep이 위치한 인덱스에서 + 1
 				arrayIdx++;
 			}
 		}
-		mysplit[arrayIdx] = data.substring(startIdx);	// 마지막으로 남은 문자열 추출해 배열에 저장	
-		*/
+		mysplits[arrayIdx] = data.substring(startIdx);	// 마지막으로 남은 문자열 추출해 배열에 저장	
+		
 		/* 이 방법으로 하면 출력이 안됨
 		int i = 0;
 		 while (i < data.length()) {
@@ -156,9 +157,9 @@ class Ex12_연습문제1 {
 			}
 		} */
 		
-		// 배열 return을 어떻게 해야되지? return System.out.println(Arrays.toString(mysplit));이 안되는 이유?
-		// 반환값의 타입이 String[]이라 return mysplit;이라고 하긴 했는데 mysplit이 반환되어 출력될 때 자꾸 주소를 반환한다고 생각하게 돼 
-		return mysplit;
+		// return System.out.println(Arrays.toString(mysplit));이 안되는 이유?
+		// return mysplit;은 주소를 반환하는게 맞음 -> 밑에 출력문에서 toString을 사용하고 있어서 여기서 주소를 받아서 배열 값을 출력할 수 있는 것임 
+		return mysplits;  
 	}
 	
 }
@@ -168,6 +169,8 @@ public class MethodEx12_연습1 {
 
 	public static void main(String[] args) {
 
+		String[] a = {"q","w"};
+		System.out.println(a);
 		
 		Ex12_연습문제1 e = new Ex12_연습문제1();
 		

@@ -23,7 +23,7 @@ class Ex10_연습문제1 {
 	}
 	
 	int[] test2(int[] arr) { 
-		int cnt = test1(arr);
+		int cnt = test1(arr);	// 값이 넘어온 것이므로 이렇게 가져와야함
 		int[] temp = new int[cnt];	// 저장할 배열 크기를 어떻게 하지? tes1 메소드 활용!
 		int j = 0;
 		for (int i = 0; i < arr.length; i++) {
