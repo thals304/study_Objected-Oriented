@@ -347,7 +347,7 @@
     }
     ```
     
-    **+)  클래스에서 다양한 변수 (꼭 구분하기!)**
+    **-  클래스에서 다양한 변수 (꼭 구분하기!)**
     
     ```java
     // 다양한 변수의 종류
@@ -362,3 +362,45 @@
     	
     }
     ```
+
+  **+) 메서드 오버로딩(overloading) , 메서드 중복정의**
+
+    1 ) 매개변수의 개수
+
+    2 ) 매개변수의 데이터 타입이 달라도 같은 이름으로 만들어진 여러 개의 메서드를 사용할 수 있는 기법 
+
+  
+    >**Tech Q&A    메서드 오버로딩 vs 메서드 오버라이딩**
+    >
+    > Overloading : 메서드 이름이 같고, 매개변수의 개수, 데이터 타입은 달라야 함
+                  (단, 리턴 값만 다른 것은 오버로딩 할 수 없음)
+    >
+    > Overriding : 부모 클래스로부터 상속 받은 메서드를 자식 클래스에서 재정의 하는 것 
+                  자식 클래스에서는 **오버라이딩하고자 하는 메소드의 이름, 매개변수, 리턴 값이 모두 같아야 함**
+
+    </aside>
+
+  ```java
+    class MethodOverloadingEx {
+	
+	int add(int x, int y) {
+		return x + y;
+	}
+	
+	int add(int x, int y, int z) {
+		return x + y + z;
+	}
+	
+	double add(double x, double y) {
+		return x + y;
+	}
+	
+	int add(int[] arr) {
+		int total = 0;
+		for (int i = 0; i < arr.length; i++) {
+			total += arr[i];
+		}
+		return total;
+	}
+}
+```
