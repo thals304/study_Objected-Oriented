@@ -145,15 +145,15 @@
     - 클래스 기반 언어에서 클래스 내부에 정의되어 있다.
     - 메서드는 프로그램이 실행되고 있을 때 클래스에서 생성된 인스턴스와 관련된 동작을 정의한다.
     
-    `**[형태]**`
+    **`[형태]`**
 
-	`void : return 타입 (int , double , char , String , int[] , Product , ....)`
+	**`void : return 타입 (int , double , char , String , int[] , Product , ....)`**
 
-	`printMenu : 메서드명 ( 주로 소문자로 시작하고 동사형태로 작명한다. )`
+	**`printMenu : 메서드명 ( 주로 소문자로 시작하고 동사형태로 작명한다. )`**
 
-	`() : 입력인수 (파라메타 , 매개변수 , 아규먼트 , 인자)`
+	**`() : 입력인수 (파라메타 , 매개변수 , 아규먼트 , 인자)`**
 
-	`{} : 메서드의 영역`
+	**`{} : 메서드의 영역`**
     
     ```java
       class MethodEx {
@@ -411,9 +411,9 @@
 
 - **객체 배열 생성**
     
-    `**형태**`
+    **`형태`**
     
-    `**클래스명[] 배열명 = new 클래스명[크기];**`
+    **`클래스명[] 배열명 = new 클래스명[크기];`**
     
     ```java
     class Product {
@@ -466,4 +466,123 @@
     		System.out.println("productList[2].name : " + productList[2].name); // 장패드2
     
     }
+    ```
+
+- **컬렉션 프레임워크 (collection framework) ArrayList**
+    - 배열은 한번 선언하면 프로그램에서 배열의 크기를 바꿀 수 없다.
+    - ArrayList 클래스는 데이터가 입력되면 자동으로 크기가 커지고 데이터가 삭제되면 자동으로 크기가 작아진다.
+    - 중간에 데이터가 삽입되면 데이터가 삽입될 위치부터 모든 데이터가 뒤로 이동 되고 중간의 데이터가 제거된 다음 위치부터 모든 데이터가 앞으로 이동한다.
+    
+    **`[ ArrayList 생성 방법 ]`**
+    
+    `ArrayList<Integer> list = new ArrayList<Integer>();`
+    
+    `ArrayList<Integer> list = new ArrayList<>(); // 우변의 제네릭의 데이터형은 생략 가능`
+    
+    `ArrayList<String> list = new ArrayList<String>();`
+    
+    `ArrayList<Product> list = new ArrayList<Product>();`
+    
+    `ArrayList<Member> list = new ArrayList<Member>();`
+    
+    **[ 래퍼 클래스(wrapper class) ]**
+    
+    - 래퍼 클래스란 기본 자료형을 클래스로 만들어 놓은 것을 의미한다.
+    
+        **[기본형]          [래퍼 클래스]**
+      
+         **byte                Byte**
+      
+         **short               Short**
+      
+         **int                Integer**
+      
+        **long                 Long**
+      
+        **float               Float**
+      
+        **double              Double**
+      
+         **char               Character**
+      
+        **boolean             Boolean**
+    
+    **[ 제네릭 ]**
+    
+    - 제네릭(generic)이라 부르며 ArrayList에 저장될 데이터 타입을 반드시 클래스로 작성한다.
+    - 기본 자료형 데이터를 저장하는 ArrayList를 만들어야 하는 경우에는 래퍼 클래스를 사용한다.
+    
+    ```java
+      // 기존 배열의 연결리스트와 비교하기
+      int arr[] = new int[10];
+      ArrayList<Integer> list = new ArrayList<Integer>();
+    
+      System.out.println(Arrays.toString(arr));
+      System.out.println(list); // toString이 내장되어 있어서 그냥 써도 됨
+    
+       // Insert & Append
+       // add(value) : arrayList의 맨뒤에 value를 추가한다.
+       // add(index,value) : arrayList의 index번째에 value를 추가한다.
+        arr[0] = 10;
+    		arr[1] = 10;
+    		arr[2] = 10;
+    		arr[3] = 10;
+    		arr[4] = 10;
+    		
+    		list.add(10);
+    		list.add(20);
+    		list.add(40);
+    		list.add(50);
+    		list.add(2, 30);
+     
+       // size() : arrayList의 데이터의 개수를 반환한다.
+        System.out.println("크기 : " + arr.length);
+    		System.out.println("크기 : " + list.size());
+      
+       // set(index,value) : ArrayList의 index번째의 값을 value값으로 수정한다.
+        arr[0] = 1000;
+    		arr[1] = 2000;
+    		arr[2] = 3000;
+    		
+    		list.set(0, 1000);
+    		list.set(1, 2000);
+    		list.set(2, 3000);
+    
+       // remove(index) : ArrayList의 index번째 위치의 값을 삭제한다.
+        arr[0] = 0;
+    		arr[1] = 0;
+    		arr[2] = 0;
+    		
+    		list.remove(2);
+    		list.remove(1);
+    		list.remove(0);
+    
+       // get(index) : ArrayList의 index번째의 value를 얻어온다.
+        System.out.println(arr[0]);
+    		System.out.println(arr[1]);
+    		System.out.println(arr[2]);
+    		System.out.println();
+    		
+    		System.out.println(list.get(0));
+    		System.out.println(list.get(1));
+    
+        for(int i = 0; i < arr.length; i++) {
+    			System.out.println(arr[i] + " ");
+    		}
+    		System.out.println();
+    		
+    		for(int i = 0; i < list.size(); i++) {
+    			System.out.println(list.get(i) + " ");
+    		}
+        
+        arr = null;
+    		
+    		list.clear();   // ArrayList의 모든 데이터만 삭제
+    		list.add(10); 	// 내용만 비운 것이니 또 추가, 삭제, 삽입 가능 
+    		
+    		list = null;    // ArrayList 자체를 삭제
+    		// list.add(10);  // null pointerException error!
+    		list = new ArrayList<Integer>();	// 다시 만들어야 함
+    		list.add(10);
+    
     ```
