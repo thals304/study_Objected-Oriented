@@ -29,7 +29,7 @@
 
 ## 📖 Study - 객체지향
 
-객체 지향 프로그래밍 ( Object Oriented Programming [ OOP ] )
+### 객체 지향 프로그래밍 ( Object Oriented Programming [ OOP ] )
 
  - **객체 지향**
     - 객체지향 프로그래밍(Object-Oriented Programming, OOP)은 프로그래밍의 한 패러다임(방법)으로 프로그램을 객체들의 집합으로 모델링하여 개발하는 방식
@@ -403,4 +403,6 @@
 		return total;
 	}
 }
-```
+
+### 객체 배열
+
