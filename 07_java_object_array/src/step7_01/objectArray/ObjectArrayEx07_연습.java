@@ -53,7 +53,7 @@ public class ObjectArrayEx07_연습 {
 		studentList[2].subjects[0].score = 100;
 		
 		
-		
+		// 객체 배열 안에 객체 배열이 있는거니 이중 for문
 		for (int i = 0; i < studentList.length; i++) {
 			System.out.println("--- " + studentList[i].name + " ---");
 			for (int j = 0; j < studentList[i].subjects.length; j++) {
