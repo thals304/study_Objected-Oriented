@@ -39,14 +39,14 @@ public class ObjectArrayEx08_연습 {
 				// 해당 학생의 과목이 null이면 for문 조건식 증감식으로 돌아가서 다음 학생의 이름 출력 
 				// studentList[i].subjects가 null이다 null이 아니다라는 의미가 정확히 뭐지?/
 			    // Subject8 의 name & score가 둘다 없는 경우 null
-				// 하나라도 있으면 != null -> 만약 과목 name만 있는 경우 score는 null 이라고 나오는건가? 
+				// 하나라도 있으면 != null -> 만약 과목 name만 있는 경우 score는 null 이라고 나오는건가? 0으로 출력됨 
 			
 				if (studentList[i].subjects != null) {
 					for (int j = 0; j < studentList[i].subjects.length; j++) {
 						System.out.println("[" + (j+1) + "]" + studentList[i].subjects[j].name + "과목 = " + studentList[i].subjects[j].score + "점");
 					}
+					System.out.println();
 				}
-				System.out.println();
 			}
 			// 자료구조 추가
 			System.out.println("[1]학생 추가하기");		// 이름 입력받아 추가
@@ -77,7 +77,7 @@ public class ObjectArrayEx08_연습 {
 				System.out.print("과목 입력 : ");
 				String subject = scan.next();
 				
-				if (studentList[select].subjects == null) { // subjects 배열이 null인 경우
+				if (studentList[select].subjects == null) { // subjects 배열이 null인 경우 크기 1 추가해주고 값 집어 넣기
 					
 					studentList[select].subjects = new Subject8[1];
 					studentList[select].subjects[0] = new Subject8();

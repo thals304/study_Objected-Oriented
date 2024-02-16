@@ -42,7 +42,7 @@ public class ClassEx11_정답예시 {
 		
 		Ex11 e = new Ex11();
 
-		for (int i = 0; i < e.arAcc.length; i++) {
+		for (int i = 0; i < e.arAcc.length; i++) { // arAcc, arPw 초기화 시켜주는 것 // 근데 배열인데 굳이 왜 해주는건가? 문자열이라서?
 			e.arAcc[i] = "";
 			e.arPw[i] = "";
 		}
@@ -59,7 +59,7 @@ public class ClassEx11_정답예시 {
 			System.out.println("-------------------------");
 			System.out.print("상태 : ");
 			if (e.identifier == -1) System.out.println("로그아웃");
-			else 					System.out.println(e.arAcc[e.identifier] + " 로그인");
+			else 					System.out.println(e.arAcc[e.identifier] + " 로그인"); // identifier를 로그아웃과 로그인으로 구분과 동시에 인덱스로 사용
 			System.out.println("-------------------------");
 			
 			System.out.println("[Mega Bank]");
@@ -79,7 +79,7 @@ public class ClassEx11_정답예시 {
 				
 				System.out.print("[가입]계좌번호를 입력하세요 : ");
 				String acc = scan.next();
-				int check = 1;
+				int check = 1;	// 중복체크 
 				for (int i = 0; i < e.arAcc.length; i++) {
 					if(e.arAcc[i].equals(acc)) {
 						check = -1;
@@ -92,7 +92,7 @@ public class ClassEx11_정답예시 {
 				else {
 					System.out.print("[가입]비밀번호를 입력하세요 : ");
 					String pw = scan.next();
-					
+					// 가입시 1000원 부여를 얘로 대체하는건가?
 					System.out.print("[가입]금액을 입력하세요 : ");
 					int money = scan.nextInt();
 					
@@ -110,13 +110,13 @@ public class ClassEx11_정답예시 {
 					continue;
 				}
 				
-				for (int i = e.identifier; i < e.accCnt - 1; i++) {
+				for (int i = e.identifier; i < e.accCnt - 1; i++) { // 자료구조 - 삭제 
 					e.arAcc[i] = e.arAcc[i + 1];
 					e.arPw[i] = e.arPw[i + 1];
 					e.arMoney[i] = e.arMoney[i + 1];
 				}
 				
-				e.accCnt -= 1;
+				e.accCnt --;
 				e.identifier = -1;
 				System.out.println("[메세지]탈퇴되었습니다. 안녕히가십시오.");
 				
@@ -181,7 +181,7 @@ public class ClassEx11_정답예시 {
 				System.out.print("[이체]계좌번호를 입력하세요 : ");
 				String acc = scan.next();
 				
-				int check = -1;
+				int check = -1; // 이체할 계좌번호 예외처리
 				for (int i = 0; i < e.accCnt; i++) {
 					if (e.arAcc[i].equals(acc)) {
 						check = i;
