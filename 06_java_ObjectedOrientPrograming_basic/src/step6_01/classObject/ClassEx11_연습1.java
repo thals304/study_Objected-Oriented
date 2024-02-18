@@ -1,5 +1,5 @@
 package step6_01.classObject;
-// 24.02.16 time 
+// 24.02.18 time 21:19-22:05
 /*
  * today 소감문
  * 자료구조를 다 까먹었는데 이 문제를 또 보게 되서 당황했고
@@ -58,6 +58,19 @@ public class ClassEx11_연습1 {
 		Ex11_연습문제1 e = new Ex11_연습문제1();
 		
 		while (true) {
+			System.out.println("계좌번호\t비밀번호\t계좌잔액");
+			for (int i = 0; i < e.accCnt; i++) {
+				System.out.println( e.arAcc[i]+ "\t" + e.arPw[i] + "\t" + e.arMoney[i]);
+			}
+		    System.out.println("=====================");
+		    System.out.print("상태 : ");
+			if (e.identifier == -1) {
+				System.out.println("로그아웃");
+			}
+			else {
+				System.out.println(e.arAcc[e.identifier] +"님 로그인");
+			}
+			System.out.println("=====================");
 			
 			System.out.println("[Mega Bank]");
 			System.out.println("[1]회원가입");
@@ -71,33 +84,143 @@ public class ClassEx11_연습1 {
 			
 			System.out.print("메뉴 선택 : ");
 			int sel = scan.nextInt();
-			
+			// identifier로 예외처리, 중복처리, 인덱스로 활용
 			if (sel == 1) {
 				// 자료구조 - 추가
 				if (e.accCnt == e.arAcc.length) {
-					System.out.println("더이상 회원을 추가할 수 없습니다.");
+					System.out.println("[메세지]더이상 회원을 추가할 수 없습니다.");
 					continue;
 				}
-				System.out.print("아이디 입력 : ");
+				System.out.print("[회원가입]가입 계좌번호 입력 : ");
 				String myId = scan.next();
 				
+				int check = 1;
+				for (int i = 0; i < e.accCnt; i++) {
+					if (e.arAcc[i].equals(myId)) {
+						check = -1;
+					}
+				}
+				if (check == -1) {
+					System.out.println("[메세지]중복된 계좌번호 입니다.");
+					continue;
+				}
+				else {
+					System.out.print("[회원가입]비밀번호 입력 : ");
+					String myPw = scan.next();
+					e.arAcc[e.accCnt] = myId;
+					e.arPw[e.accCnt] = myPw;
+					e.arMoney[e.accCnt] += 1000;
+					e.accCnt++;
+					System.out.println("[메세지]회원가입을 축하합니다. 가입 축하 금액 1000원 드립니다.");
+				}
 				
 			}
 			else if (sel == 2) {
-				
+				if (e.identifier == -1) {
+					System.out.println("[메세지]로그인 후 이용 가능합니다.");
+					continue;
+				}
+				else {
+					for (int i = e.identifier; i < e.accCnt - 1; i++) { // e.accCnt - 1해줘야 하나?
+						e.arAcc[i] = e.arAcc[i+1];
+						e.arPw[i] = e.arPw[i+1];
+						e.arMoney[i] = e.arMoney[i+1];
+					}
+					
+					e.accCnt--; // e.e.arAcc[accCnt] = null; 안해줘도 되나?
+					e.identifier = -1;
+					System.out.println("[메세지]회원탈퇴되었습니다. 감사합니다.");
+				}
 			}
 			else if (sel == 3) {
-				
+				if (e.identifier != -1) {
+					System.out.println(e.arAcc[e.identifier] + "님 로그인 중..");
+					continue;
+				}
+				else {
+					System.out.print("[로그인]계좌 번호 : ");
+					String myId = scan.next();
+					System.out.print("[로그인]비밀 번호 : ");
+					String myPw = scan.next();
+					
+					for (int i = 0; i < e.accCnt; i++) {
+						if (e.arAcc[i].equals(myId) && e.arPw[i].equals(myPw)) {
+							e.identifier = i;
+						}
+					}
+					if (e.identifier == -1) {
+						System.out.println("[메세지]계좌 번호와 비밀 번호를 다시 확인해주세요");
+						continue;
+					}
+					else {
+						System.out.println( e.arAcc[e.identifier]+ "님 환영합니다.");
+					}
+				}
 				
 			}
 			else if (sel == 4) {
+				if (e.identifier == -1) {
+					System.out.println("[메세지] 로그인 후에 이용가능합니다.");
+					continue;
+				}
+				else {
+					e.identifier = -1;
+					System.out.println("[메세지] 로그아웃 되었습니다.");
+				}
 				
 			}
 			else if (sel == 5) {
-				
+				if (e.identifier == -1) {
+					System.out.println("[메세지] 로그인 후에 이용가능합니다.");
+					continue;
+				}
+				else {
+					
+					System.out.print("[입금] 입금 금액 ");
+					int myMoney = scan.nextInt();
+					
+					e.arMoney[e.identifier] += myMoney;
+					System.out.println("[메시지] 입금 완료");
+				}
 			}
-			else if (sel == 6) {}
-			else if (sel == 7) {}
+			else if (sel == 6) {
+				if (e.identifier == -1) {
+					System.out.println("[메세지] 로그인 후에 이용가능합니다.");
+					continue;
+				}
+				else {
+					System.out.print("[이체] 이체할 계좌번호 입력 : ");
+					String otherId = scan.next();
+					// 이체할 계좌가 존재하는지 확인하고 싶은데
+					int check = -1;
+					for (int i = 0; i < e.accCnt; i++) {
+						if (e.arAcc[i].equals(otherId)) {
+							check = i;
+						}
+					}
+					if (check == -1) {
+						System.out.println("[메세지] 이체할 계좌번호를 다시 확인해주세요.");
+						continue;
+					}
+					else {
+						System.out.print("[이체]이체 금액 ");
+						int sendMoney = scan.nextInt();
+						
+						if (e.arMoney[e.identifier] >= sendMoney) {
+							e.arMoney[e.identifier] -= sendMoney;
+							e.arMoney[check] += sendMoney;
+							System.out.println("[메세지] 이체 완료");
+						}
+						else {
+							System.out.println("[메세지] 계좌 잔액이 부족합니다.");
+							continue;
+						}
+					}
+				}
+			}
+			else if (sel == 7) {
+				System.out.println("[잔액조회]" + e.arAcc[e.identifier] + "님의 잔액 : " + e.arMoney[e.identifier] + "원");
+			}
 			else if (sel == 0) {
 				System.out.println("프로그램 종료");
 				break;
