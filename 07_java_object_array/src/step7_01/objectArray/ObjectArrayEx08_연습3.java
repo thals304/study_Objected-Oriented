@@ -138,9 +138,9 @@ public class ObjectArrayEx08_연습3 {
 				System.out.print("성적 입력 : ");
 				int score = scan.nextInt();
 				// studentList[select].subjects[num] = new Subject8_연습문제3(); 
-				// 각 요소에 new Subject8_연습문제3 클래스의 새 인스턴스를 할당하는 코드	
+				// 각 배열 요소에 new Subject8_연습문제3 클래스의 새 인스턴스를 할당하는 코드	
 				// 얘도 이거를 써줘야 하나? No. 안써주는 이유? 
-				// 과목이 추가 되어있어야 성적을 입력할 수 있는 구조이므로 과목 추가부분에서 새 인스턴스를 할당하는 코드를 썼기 때문인건가?
+				// 과목이 추가 되어있어야 성적을 입력할 수 있는 구조이므로 이미 과목 추가부분에서 새 인스턴스를 할당하는 코드를 썼기 때문인건가? yes
 				studentList[select].subjects[num].score = score;
 				
 			}
