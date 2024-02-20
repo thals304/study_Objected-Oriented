@@ -19,26 +19,26 @@ class StudentDTO{
 
 class StudentController{
 	
-	ArrayList<StudentDTO> studentList = new ArrayList<StudentDTO>();
+	ArrayList<StudentDTO> studentList = new ArrayList<StudentDTO>(); // 어레이리스트 생성
 	
 	void addStudent(StudentDTO studentDTO) {
-		studentList.add(studentDTO);
+		studentList.add(studentDTO); // 주소(링크)를 어레이리스트에 add함
 	}
 	
 	
-	StudentDTO removeStudent(int index) {
+	StudentDTO removeStudent(int index) { // 인덱스에 해당하는 요소를 deleteObj에 저장 
 		StudentDTO deletedObj = studentList.get(index);
 		studentList.remove(index);
-		return deletedObj;
+		return deletedObj;	// 이미 삭제한 값인데 왜 return? pop()메서드처럼 삭제하는 데이터 return
 	}
 	
 	
-	int checkId(StudentDTO studentDTO) {
+	int checkId(StudentDTO studentDTO) { // 아이디 중복 체크, 예외처리, 인덱스 역할
 		int check = -1;
 		for (int i = 0; i < studentList.size(); i++) {
 			if (studentList.get(i).id.equals(studentDTO.id)) {
 				check = i;
-				break;
+				break; // break 반드시 써줘야함
 			}
 		}
 		return check;
@@ -47,7 +47,7 @@ class StudentController{
 	
 	void printStudent() {
 		
-		for (StudentDTO studentDTO : studentList) {
+		for (StudentDTO studentDTO : studentList) {	// foreach문 사용
 			System.out.println("이름 : " + studentDTO.id + " / 비밀번호 : " + studentDTO.pw);
 		}
 		
@@ -78,9 +78,17 @@ class StudentController{
 	
 	
 	void sortData() {
-		/*
-              	직접 구현해보세요.
-        */
+		// 아이디 정렬 (오름차순) : 버블 정렬
+		for (int i = 0; i < studentList.size(); i++) {
+			for (int j = i ; j < studentList.size(); j++) { 
+				if (studentList.get(i).id.compareTo(studentList.get(j).id) > 0) { // 문자열이므로
+					// get(index)는 가져오기만 가능 수정하려면 set (index, value)
+					StudentDTO temp = studentList.get(i);
+					studentList.set(i, studentList.get(j));
+					studentList.set(j, temp);
+				}
+			}
+		}
 	}
 	
 	
@@ -100,7 +108,7 @@ public class ObjectArrayEx15_연습 {
 	public static void main(String[] args) {
 		
 		Scanner scan = new Scanner(System.in);
-		StudentController controller = new StudentController();
+		StudentController controller = new StudentController();	// 객체 생성
 		
 		String fileName = "student_arraylist_db.txt";
 		
@@ -112,15 +120,15 @@ public class ObjectArrayEx15_연습 {
 			
 			if (sel == 1) {
 				
-				StudentDTO temp = new StudentDTO();
+				StudentDTO temp = new StudentDTO();	// 객체 생성
 				System.out.print("[가입] id 를 입력하세요 >>> ");
-				temp.id = scan.next();			
-				int check =  controller.checkId(temp);
+				temp.id = scan.next();	// temp 객체에 id, pw 저장 	
+				int check =  controller.checkId(temp); // 중복 처리
 				
-				if (check == -1) {
+				if (check == -1) { // 중복이 아닐 때
 					System.out.print("[가입] pw 를 입력하세요 >>> ");
 					temp.pw = scan.next();
-					controller.addStudent(temp);	
+					controller.addStudent(temp); // temp 주소(링크)
 					System.out.println(temp.id + "님 가입을 환영합니다.");
 				}
 				else {
@@ -130,18 +138,18 @@ public class ObjectArrayEx15_연습 {
 			}
 			else if (sel == 2) {
 				
-				controller.printStudent();
+				controller.printStudent(); // 어레이 리스트에 저장된 id / pw 출력
 				
-				StudentDTO temp = new StudentDTO();
+				StudentDTO temp = new StudentDTO(); // 객체 생성
 				
 				System.out.print("[탈퇴] id 를 입력하세요 >>> ");
-				temp.id = scan.next();	
+				temp.id = scan.next();	// temp 객체에 id, pw 저장 	
 				
-				int check = controller.checkId(temp);
+				int check = controller.checkId(temp); // 예외처리
 				if (check == -1) {
 					System.out.println("없는 아이디입니다.");
 				}
-				else {
+				else { // check가 인덱스 역할을 함
 					System.out.println(controller.removeStudent(check).id + "님 탈퇴 되었습니다.");
 				}
 				

@@ -20,7 +20,6 @@ class StudentEx{
 }
 
 
-
 class Controller { // Controller 
 	
 	StudentEx[] list = null; 
