@@ -102,6 +102,7 @@ public class ATM {
 				else { // user의 계좌가 1개 이상 일 때
 					// 왜 위에와 다르게 getUser를 하는거지?
 					// userManager.getUser(identifier).acc와 userManager.user[identifier].acc의 차이?
+					// 차이 없음. 예시로서 미리 private이라는 가정 하에 getUser(index)를 사용해 본 것 뿐
 					Account[] temp = userManager.getUser(identifier).acc; // acc는 객체 배열
 					int tempAccCount = userManager.getUser(identifier).accCount; // user 배열 크기 
 					userManager.user[identifier].acc = new Account[tempAccCount+1];

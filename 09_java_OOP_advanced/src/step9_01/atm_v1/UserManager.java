@@ -64,7 +64,7 @@ public class UserManager {
 	}
 	
 	
-	User getUser(int idx) { // 
+	User getUser(int idx) { // private인 user를 반환하기 위함
 		return user[idx];
 	}
 	
