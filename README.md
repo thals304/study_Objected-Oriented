@@ -407,6 +407,236 @@
 	}
 }
 
+- **생성자 (Constructor)**
+    - 생성자는 반드시 클래스의 이름과 같아야 한다.
+    - 생성자는 리턴타입을 가지지 않고 return도 사용하지 않는다.
+        
+        ( 생성자도 하나의 메서드이지만 기존 메서드와의 차이점이 있다. )
+        
+    - 생성자는 인스턴스를 생성할때 ( new 클래스명(); ) 호출된다.
+        
+        3-1) 반드시 실행된다.
+        
+        3-2) 가장 먼저 실행된다.
+        
+    - 생성자를 정의하지 않으면 컴파일러가 자동으로 기본 생성자를 만든다.
+    - 기본 생성자란 클래스이름과 같으며 매개변수에 아무것도 없는 생성자를 의미한다.
+    - 생성자를 새로 정의하면 기본 생성자는 자동으로 만들어지지 않는다.
+    
+    ```java
+    class ConstructorTest {
+    	
+    	// 생성자
+    	ConstructorTest(){ // 메서드랑 다른 점 : return 없음
+    		
+    		System.out.println("생성자 호출");
+    		
+    	}
+    	// 메서드
+    	void method1() {
+    		System.out.println("메서드1 호출");
+    	}
+    	void method2() {
+    		System.out.println("메서드2 호출");
+    	}
+    	void method3() {
+    		System.out.println("메서드3 호출");
+    	}
+    	
+    }
+    
+    public class MethodEx19_01 {
+    
+    	public static void main(String[] args) {
+    		
+    		// 객체를 생성할 때 기본 생성자가 실행된다.
+    		ConstructorTest object = new ConstructorTest();
+    		
+    		// 메서드를 호출할 때 메서드가 실행된다.
+    		object.method3();
+    		object.method1();
+    		
+    		new ConstructorTest();
+    		new ConstructorTest();
+    		
+    	}
+    
+    }
+    ```
+    
+    ```java
+    // 생성자를 이용한 필드 초기화(init)
+    
+    class GoodsDTO {
+    	
+    	String goodsCd;
+    	String goodsNm;
+    	int goodsPrice;
+    	
+    	void setData(String goodsCd, String goodsNm, int goodsPrice) {
+    		this.goodsCd = goodsCd;
+    		this.goodsNm = goodsNm;
+    		this.goodsPrice = goodsPrice;
+    	}
+    	// 생성자 자동완성키 Source > Generate Constructor Using Fields 
+    	public GoodsDTO(String goodsCd, String goodsNm, int goodsPrice) {
+    
+    		this.goodsCd = goodsCd;
+    		this.goodsNm = goodsNm;
+    		this.goodsPrice = goodsPrice;
+    	}
+    	
+    	void printData() {
+    		System.out.println("goodsCd : " + this.goodsCd);
+    		System.out.println("goodsNm : " + this.goodsNm);
+    		System.out.println("goodsPrice : " + this.goodsPrice);
+    		System.out.println();
+    	}
+    }
+    public class MethodEx19_02 {
+    
+    	public static void main(String[] args) {
+    		
+    		// (before)
+    		// GoodsDTO goodsDTO = new GoodsDTO();
+    		// goodsDTO.setData("0x001", "셔츠", 30000);
+    		// goodsDTO.printData();
+    		
+    		// (after)
+    		GoodsDTO goods1 = new GoodsDTO("0x001", "셔츠", 30000);
+    		goods1.printData();
+    		
+    		GoodsDTO goods2 = new GoodsDTO("0x002", "데님바지", 50000);
+    		goods2.printData();
+    		
+    		GoodsDTO goods3 = new GoodsDTO("0x003", "양말", 2000);
+    		goods3.printData();
+    		
+    		// 생성자 사용 예시
+    		Scanner scan = new Scanner(System.in);
+    		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    		DecimalFormat df = new DecimalFormat("#,##0");
+    	}
+    
+    }
+    ```
+    
+    - **생성자 오버로딩**
+        - 생성자도 메서드이기 때문에 메서드 오버로딩 기법이 적용 가능하다.
+        - 생성자 오버로딩을 구현하기 위해서는 메서드와 마찬가지로
+        - 파라메타의 개수나 타입을 다르게 정의 하면 된다.
+    
+    ```java
+    class GoodsVO {
+    
+    	String goodsCd;
+    	String goodsNm;
+    	int goodsPrice;
+    
+    	// 기본 생성자
+    	GoodsVO() {
+    		this.goodsCd = "없음";
+    		this.goodsNm = "없음";
+    		this.goodsPrice = -1;
+    	}
+    
+    	// 생성자 오버로딩
+    	GoodsVO(String goodsCd) {
+    		this.goodsCd = goodsCd;
+    		this.goodsNm = "없음";
+    		this.goodsPrice = -1;
+    	}
+    
+    	// 생성자 오버로딩
+    	GoodsVO(String goodsCd, String goodsNm) {
+    		this.goodsCd = goodsCd;
+    		this.goodsNm = goodsNm;
+    		this.goodsPrice = -1;
+    	}
+    
+    	// 생성자 오버로딩
+    	GoodsVO(String goodsCd, String goodsNm, int goodsPrice) {
+    		this.goodsCd = goodsCd;
+    		this.goodsNm = goodsNm;
+    		this.goodsPrice = goodsPrice;
+    	}
+    
+    	void printData() {
+    		System.out.println("goodsCd : " + this.goodsCd);
+    		System.out.println("goodsNm : " + this.goodsNm);
+    		System.out.println("goodsPrice : " + this.goodsPrice);
+    		System.out.println();
+    	}
+    }
+    public class MethodEx19_03 {
+    
+    	public static void main(String[] args) {
+    
+    		GoodsVO goods1 = new GoodsVO();
+    		goods1.printData();
+    		
+    		GoodsVO goods2 = new GoodsVO("0x001");
+    		goods2.printData();
+    		
+    		GoodsVO goods3 = new GoodsVO("0x002", "청바지");
+    		goods3.printData();
+    		
+    		GoodsVO goods4 = new GoodsVO("0x003", "셔츠", 50000);
+    		goods4.printData();
+    		
+    	}
+    }
+    ```
+    
+    - **toString**
+        - 주소를 받아 객체에 관한 정보를 문자열로 반환한다.
+    
+    ```java
+    class OrderDTO {
+    	
+    	private String orderId;
+    	private String goodsId;
+    	private String memberId;
+    	
+    	public String getOrderId() {
+    		return orderId;
+    	}
+    	public void setOrderId(String orderId) {
+    		this.orderId = orderId;
+    	}
+    	public String getGoodsId() {
+    		return goodsId;
+    	}
+    	public void setGoodsId(String goodsId) {
+    		this.goodsId = goodsId;
+    	}
+    	public String getMemberId() {
+    		return memberId;
+    	}
+    	public void setMemberId(String memberId) {
+    		this.memberId = memberId;
+    	}
+      // toString 생성 자동완성
+    	// 좌측 상단 Source > Generate toString > Generate
+    	@Override
+    	public String toString() {
+    		return "OrderDTO [orderId=" + orderId + ", goodsId=" + goodsId + ", memberId=" + memberId + ", goodsTitle="
+    				+ goodsTitle + "]";
+    	}
+    	}
+    public class MethodEx20 {
+    
+    	public static void main(String[] args) {
+    		
+    		OrderDTO order1 = new OrderDTO();
+    		order1.setOrderId("order1");
+    		order1.setGoodsId("goods1");
+    		order1.setMemberId("member1");
+    		System.out.println(order1); // 주소를 찍으면 toString이 저장된 값들 출력됨 // getter로 하나씩 출력할 필요 없음
+      }
+    }
+    ```
+
 ### 객체 배열
 
 - **객체 배열 생성**
@@ -806,7 +1036,7 @@
     		}
     ```
 
-### 객체지향 기법
+### 객체 지향 기법
 
 - **개요**
 
