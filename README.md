@@ -1194,3 +1194,252 @@
         		System.out.println(unit.getHp());
         		System.out.println();
         ```
+
+- **상속 (Inheritance)**
+    - 클래스 사이 부모 자식 관계를 설정해서 프로퍼티(필드, 변수) 및 메서드를 상속 및 확장하여 사용할 수 있다.
+    
+      **[ 호칭 ]**
+    
+      **`부모 클래스, 상위 클래스, 슈퍼 클래스, 기반 클래스`**
+    
+      **`----------------------------------------------------`**
+    
+      **`자녀 클래스, 하위 클래스, 서브 클래스, 파생 클래스`**
+    
+      **[ 형식 ]**
+    
+      **`class 자녀클래스 extends 부모클래스 {}`**
+    
+    - 모든 클래스는 Object클래스를 상속받는다.
+    - 단일 상속만 가능하다. ( 다중상속 불가 )
+    - Ex) Class A extends B,C,D,E (불가능)
+    
+    ```java
+    class Beginner {
+    	
+    	int level = 1;
+    	int power = 10;
+    	int dex   = 10;
+    	int life  = 10;
+    	int mana  = 10;
+    	
+    	void levelUp() {
+    		this.level++;
+    		this.power += 10;
+    		this.dex   += 10;
+    		this.life  += 10;
+    		this.mana  += 10;
+    	}
+    	
+    	void printStatus() {
+    		System.out.println("level : " + this.level);
+    		System.out.println("power : " + this.power);
+    		System.out.println("dex : " + this.dex);
+    		System.out.println("life : " + this.life);
+    		System.out.println("mana : " + this.mana);
+    		System.out.println();
+    	}
+    }
+    
+    class Warrior1 extends Beginner {
+    	
+    }
+    class Wizard1 extends Beginner {
+    	
+    }
+    public class InheritanceEx01 {
+    
+    	public static void main(String[] args) {
+    
+    		Warrior1 warrior1 = new Warrior1();
+    		warrior1.printStatus();
+    		warrior1.levelUp();
+    		warrior1.levelUp();
+    		warrior1.levelUp();
+    		warrior1.printStatus();
+    		
+    		System.out.println("\n=================\n");
+    		
+    		Wizard1 wizard1 = new Wizard1();
+    		wizard1.printStatus();
+    		wizard1.levelUp();
+    		wizard1.printStatus();
+    	}
+    
+    }
+    ```
+    
+    - **메서드 오버라이딩 (Method Overriding)**
+        - 부모클래스로부터 상속 받은 메서드를 재정의(overriding)하여 사용한다.
+            - 부모클래스의 메서드와 이름이 같고 구현되는 기능이 다르다.
+            - 객체지향 기법의 다형성(polymorphism)을 구현하는 핵심기능이다.
+            - 메서드 오버로딩과 혼용되기 쉽다.
+            **메서드 오버라이딩** : 부모클래스와 자녀클래스 사이의 메서드이름이 같음(재정의)
+            **메서드 오버로딩** : 같은 클래스 안에서 메서드이름이 같음(중복 정의)
+        
+        ```java
+        class Warrior2 extends Beginner{
+        	
+        	// 메서드 오버라이딩 (메서드 재정의)
+        	void levelUp() {
+        		this.level++;
+        		this.power += 1000;
+        		this.dex   += 100;
+        		this.life  += 1000;
+        		this.mana  += 5;
+        	}
+        	// Warrior2 클래스만의 메서드 추가
+        	void dash() {
+        		System.out.println("\n warrior2 dash! \n");
+        	}
+        
+        }
+        class Wizard2 extends Beginner{
+        	
+        	// 메서드 오버라이딩 (메서드 재정의)
+        		void levelUp() {
+        			this.level++;
+        			this.power += 20;
+        			this.dex   += 100;
+        			this.life  += 100;
+        			this.mana  += 3000;
+        		}
+        	// Wizard2 클래스만의 메서드 추가
+        		void fireball() {
+        			System.out.println("\n wizard2 fireball! \n");
+        		}
+        }
+        
+        public class InheritanceEx02 {
+        
+        	public static void main(String[] args) {
+        
+        		Warrior2 warrior2 = new Warrior2();
+        		warrior2.printStatus();
+        		warrior2.levelUp();
+        		warrior2.levelUp();
+        		warrior2.levelUp();
+        		warrior2.printStatus();
+        		
+        		warrior2.dash();
+        		
+        		System.out.println("\n=================\n");
+        		
+        		Wizard2 wizard2 = new Wizard2();
+        		wizard2.printStatus();
+        		wizard2.levelUp();
+        		wizard2.printStatus();
+        		wizard2.fireball();
+        	}
+        
+        }
+        ```
+        
+    
+	    <aside>
+	 > **다형성 vs 메서드 오버라이딩**
+	 > **다형성** : 하나의 객체가 여러가지 타입을 가질 수 있는 것
+	 >  다형성은 오버라이딩보다 큰 개념 
+	 >  오버라이딩은 다형성의 한 형태로 상속 관계에서 발생하는 매커니즘
+	    
+	    </aside>
+	    
+	    - **this, super**
+	        - this : **자신**의 객체
+	            
+	            super : **부모클래스**의 객체
+	            
+	        - this() : **자신**의 생성자
+	            
+	            super() : **부모클래스**의 생성자
+	            
+	        - ex)
+	            
+	            this.testMethod() : 자신의 메서드 호출
+	            
+	            testMethod()	: 자신의 메서드 호출
+	            
+	            super.testMethod() : 부모의 메서드 호출
+	            
+	        
+	        ```java
+	        class Parent{
+	        	
+	        	String name = "p";
+	        	int age = 70;
+	        	
+	        	Parent(){
+	        		this("무명",-1); // Parent(String name, int age) 추가 생성자가 먼저 출력됨
+	        		System.out.println("(P-기본) 부모클래스 기본생성자 실행");
+	        	}
+	        	Parent(String name, int age){
+	        		System.out.println("(P-기본) 부모클래스 생성자 오버로딩 실행");
+	        	}
+	        	
+	        	void testMethod() {
+	        		System.out.println("(P) 부모클래스이 테스트 메서드");
+	        	}
+	        	
+	        }
+	        
+	        class Child extends Parent{
+	        	
+	        	String name = "c";
+	        	int age = 40;
+	        	
+	        	Child(){
+	        		// super(); // 부모 클래스의 기본생성자를 실행 (기본적으로 생략되어 있음)
+	        		super("부모2", 80);
+	        		System.out.println("(C-기본) 자녀클래스 기본생성자 실행");
+	        	}
+	        	Child (String name, int age){
+	        		// this();         // 부모 오버로딩, 자녀 기본, 자녀 오버로딩 출력
+	        		// super();        // 부모 오버로딩, 부모 기본, 자녀 오버로딩 출력
+	        		super("앨런튜링",70); // 부모 오버로딩, 자녀 오버로딩 출력
+	        		System.out.println("(C-기본) 자녀클래스 생성자 오버로딩 실행");
+	        	}
+	        	
+	        	// 오버라이딩 (상속 관계)
+	        	void testMethod() {
+	        		System.out.println("(C) 자녀클래스이 테스트 메서드");
+	        	}
+	        	void callMethod() {
+	        		
+	        		System.out.println(this.name);	// 자신의 변수
+	        		System.out.println(this.age);
+	        		
+	        		System.out.println(super.name);	// 부모의 변수
+	        		System.out.println(super.age);
+	        		
+	        		System.out.println();
+	        		testMethod();       // 자신의 testMethod(); 호출
+	        		this.testMethod();  // 자신의 testMethod(); 호출
+	        		super.testMethod(); // 부모의 testMethod(); 호출
+	        		
+	        	}
+	        	
+	        }
+	        
+	        public class InheritanceEx03 {
+	        
+	        	public static void main(String[] args) {
+	        
+	        		new Parent();
+	        		System.out.println();
+	        		
+	        		new Parent("부모",70);
+	        		System.out.println();
+	        		
+	        		//(P-기본) 부모클래스 생성자 실행 이 따라옴
+	        		new Child();
+	        		System.out.println();
+	        		
+	        		new Child("자녀", 40);
+	        		System.out.println();
+	        		
+	        		Child object = new Child("자녀", 20);
+	        		object.callMethod();
+	        	}
+	        
+	        }
+	        ```
