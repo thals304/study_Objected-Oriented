@@ -1046,7 +1046,7 @@
     - 객체지향 프로그래밍에서 캡슐화는 클래스의 내부 구현을 숨기고
     외부에서는 오직 정의된 인터페이스를 통해서만 객체와 상호작용할 수 있도록 하는 문법이다.
     - 이를 통해 객체의 상세 구현을 변경해도 다른 코드에 영향을 주지 않게 하여 코드의 유지보수성과 확장성을 높인다.
-    - 캡슐화를 구현하는 문법 접근제어자(Access Modifier)의 종류
+    - **캡슐화를 구현하는 문법 접근제어자(Access Modifier)의 종류**
         - **public  		     : 프로젝트 전체에서 접근 가능**
         - **protected             : 상속 관계에서 접근 가능**
         - **default(package) : 패키지 내에서만 접근 가능**
@@ -1117,5 +1117,80 @@
     		System.out.println(bankAccount2.getBalance());
     	}
     
-    }	```
+    }
+    ```
     
+    ```java
+    // 클래스에서 접근제어자
+    // public class PublicC{}       // (가능) 단, 하나의 클래스 파일에는 하나의 public 클래스만 존재 가능 (이미 밑에서 사용하고 있어서 오류뜸)
+    class DefaultC{}                // (가능)
+    // protected class ProtectedC{} // (불가능) class는 public, default 접근제어자만 사용 가능
+    // private class privateC{}     // (불가능) class는 public, default 접근제어자만 사용 가능 
+    
+    public class EncapsulationEx03 {
+    	// 필드에서 접근제어자
+    	public int publicV;        // 프로젝트 전체에서 접근 가능
+    	int defaultV;   		       // 같은 패키지에서 접근가능
+    	protected int protectedV;  // 상속관계에서 접근 가능
+    	private int privateV;      // 같은 클래스 내부에서만 접근 가능
+    
+    	// 메서드에서 접근제어자
+    	public void publicM(){	}	   	// 프로젝트 전체에서 접근 가능
+    	void defaultM(){}				      // 같은 패키지에서 접근가능
+    	protected void protectedM(){}	// 상속관계에서 접근 가능
+    	private void privateM(){}		  // 같은 클래스 내부에서만 접근 가능
+    }
+    ```
+    
+    - **Getter & Setter**
+        - 캡슐화는 객체의 데이터를 외부에서 직접 접근하는 것을 제한하여 객체의 상태를 보호하고
+        객체와 상호작용하는 방식을 제어하는 객체 지향 프로그래밍의 핵심 원칙 중 하나이다.
+        Getter와 Setter 메서드를 통해 이를 구현할 수 있다.
+        - getter : 접근 , setter : 수정
+        
+        ```java
+        class Unit {
+        	
+        	private String name;
+        	private int hp;
+        	
+        	// getter : private 변수를 외부로 반환하는 메서드
+        	String getName() { // 변수명 앞에 get을 추가하여 메서드 이름을 작성함
+        		return name;
+        	}
+        	// setter : private 변수를 외부로 수정하는 메서드
+        	void setName(String name) { // 변수명 앞에 set을 추가하여 메서드 이름을 작성함
+        		// this를 생략할 수 없음 
+        		// java에서는 this를 현재 객체를 가리키는 참조로서 멤버 변수인 name과 파라미터 name을 구분하기 위해 써야함
+        		this.name = name; 
+        	}
+        	
+        	int getHp() {
+        		return hp;
+        	}
+        	void setHp (int hp) {
+        		this.hp = hp;
+        	}
+        }
+        
+        public class EncapsulationEx02 {
+        
+        	public static void main(String[] args) {
+        		
+        		Unit unit = new Unit();
+        		
+        		// unit.name = "tank";
+        		// unit.hp = 100;
+        		
+        		// setter를 사용해 private 필드를 수정
+        		unit.setName("tank");
+        		unit.setHp(100);
+        		
+        		// System.out.println(unit.name);
+        		// System.out.println(unit.hp);
+        		
+        		// getter를 사용해 private 필드를 반환
+        		System.out.println(unit.getName());
+        		System.out.println(unit.getHp());
+        		System.out.println();
+        ```
