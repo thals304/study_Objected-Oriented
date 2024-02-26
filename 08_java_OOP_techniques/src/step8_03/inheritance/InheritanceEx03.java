@@ -52,7 +52,7 @@ class Child extends Parent{
 		System.out.println("(C-기본) 자녀클래스 생성자 오버로딩 실행");
 	}
 	
-	// 오버라이딩
+	// 오버라이딩 (상속 관계)
 	void testMethod() {
 		System.out.println("(C) 자녀클래스이 테스트 메서드");
 	}
