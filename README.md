@@ -1274,7 +1274,9 @@
             - 부모클래스의 메서드와 이름이 같고 구현되는 기능이 다르다.
             - 객체지향 기법의 다형성(polymorphism)을 구현하는 핵심기능이다.
             - 메서드 오버로딩과 혼용되기 쉽다.
+              
             **메서드 오버라이딩** : 부모클래스와 자녀클래스 사이의 메서드이름이 같음(재정의)
+          
             **메서드 오버로딩** : 같은 클래스 안에서 메서드이름이 같음(중복 정의)
         
         ```java
@@ -1335,14 +1337,12 @@
         }
         ```
         
-    
-		    <aside>
 	   > **다형성 vs 메서드 오버라이딩**
-	   > **다형성** : 하나의 객체가 여러가지 타입을 가질 수 있는 것
-	   >  다형성은 오버라이딩보다 큰 개념 
+    > 
+	   >  다형성 : 하나의 객체가 여러가지 타입을 가질 수 있는 것
+	   >  다형성은 오버라이딩보다 큰 개념
 	   >  오버라이딩은 다형성의 한 형태로 상속 관계에서 발생하는 매커니즘
 	    
-	    </aside>
 
      - **this, super**
     - this : **자신**의 객체
@@ -1443,4 +1443,256 @@
     
     }
     ```
- 
+
+ - **추상화  (Abstraction)**
+    - 부모클래스를 상속받은 자식클래스에게 반드시 구현해야하는 메서드를 잊지않고 만들도록 '강제'하는 클래스
+    - abstract 키워드를 클래스 앞에 붙여주어 추상클래스를 생성한다.
+    - abstract 키워드를 메서드 앞에 붙여주어 추상메서드를 생성한다.
+    - 추상메서드 뒤에 '{}' 아닌 ';'을 붙인다.
+    - 추상메서드는 추상클래스 안에서 선언만 하고 실질적인 메소드의 추상클래스를 상속받은 일반 자녀클래스에서 진행한다.
+    - 다중 상속이 불가능하다.
+    - 추상 클래스는 객체를 생성 할 수 없다.
+    
+    ```java
+    // 일반 클래스
+    class NormalClass {
+    	
+    	int var; // 필드
+    	
+    	NormalClass (){} // 생성자
+    	
+    	void method() {} // 메서드
+    	
+    }
+    
+    // 추상 클래스
+    abstract class AbstractClass {
+    	
+    	// 필드
+    	int var1;
+    	String var2;
+    	double var3;
+    	
+    	// 추상메서드 (핵심!)
+    	abstract void abstractMethod1(); // 추상화는 책의 목차라고 생각하기 > 목차는 내용이 있으면 안됨
+    	abstract void abstractMethod2();
+    	abstract void abstractMethod3();
+    	abstract void abstractMethod4();
+    	abstract void abstractMethod5();
+    	
+    	// 일반 메서드
+    	void method1() {
+    		System.out.println("일반 메서드1");
+    	}
+    	void method2() {
+    		System.out.println("일반 메서드12");
+    	}
+    	void method3() {
+    		System.out.println("일반 메서드3");
+    	}
+    	
+    }
+    // 추상클래스를 상속받은 클래스
+    class TestClass1 extends AbstractClass{
+    
+    	// 추상 메서드는 반드시 구현해야 한다.
+    	@Override
+    	void abstractMethod1() {
+    		
+    	}
+    
+    	@Override
+    	void abstractMethod2() {
+    		
+    	}
+    
+    	@Override
+    	void abstractMethod3() {
+    		
+    	}
+    
+    	@Override
+    	void abstractMethod4() {
+    		
+    	}
+    
+    	@Override
+    	void abstractMethod5() {
+    	
+    	}
+    	
+    }
+    public class AbstractionEx01 {
+    
+    	public static void main(String[] args) {
+    		
+    		// 추상클래스는 객체를 생성할 수 없다.
+    		// new AbstractClass();
+    		
+        // 상속받은 추상 클래스의 필드, 일반 메서드, 구현한 추상 메서드 사용 가능
+    		TestClass1 testclass1 = new TestClass1();
+    		
+    	}
+    	
+    }
+    ```
+    
+    - **인터페이스** **(매우 중요)**
+        - 인터페이스는 추상클래스보다 더 추상화된 구문
+        - 실제 구현된 것이 전혀 없는 기본 설계도 (자바 8이후 부터 default 메서드 static 메서드추가)
+        - 미리 정해진 규칙에 맞게 구현하도록 '표준'을 제시하는데 사용한다.
+        - 클래스는 인터페이스를 상속(extends)받을 수 없고 인터페이스는 클래스를 상속(extends)받을 수 없다.
+        - 클래스는 클래스끼리 인터페이스는 인터페이스끼리 상속(extends)시킬 수 있다.
+        - 클래스는 다중 상속(extends)을 허용하지않지만 인터페이스는 다중구현(implements)을 허용한다.
+        
+        **[ 인터페이스의 요소 ]**
+        
+        - **상수** : 인터페이스에서 제공하는 지정된 데이터
+        - **추상메소드** : 추상메서드는 추상클래스 안에서 선언만 하고 실질적인 메소드의 추상클래스를 상속받은 일반 자녀클래스에서 진행한다.
+        - **디폴트(일반)메소드** : 인터페이스에서도 메서드 구현이 가능하지만 구현한 클래스에서는 강제성이 없다.
+        - **정적(static)메소드** : 객체가 없어도 인터페이스 만으로도 사용이 가능한 메서드
+        
+        ```java
+        // 인터페이스
+        interface BBB {
+        	
+        	// 정적 상수
+        	static final int A = 100;
+        	static final int B = 100;
+        	static final int C = 100;
+        	
+        	// 추상메서드
+        	abstract void test3();
+        	abstract void test4();
+        	
+        	// void test5() {} 사용 X > 개정
+        	// 일반 메서드 (메서드 앞에 default 키워드를 작성한다)
+        	default void test5() {
+        		System.out.println("default 메서드");
+        	}
+        	
+        	// 정적 메서드 (메서드 앞에 static 키워드를 작성한다.)
+        	static void test6() {
+        		System.out.println("static 메서드");
+        	}
+        	
+        }
+        // 인터페이스에서는 abstract키워드를 생략할 수 있다.
+        interface CCC {
+        	void test7();	
+        	void test8();
+        	void test9();
+        }
+        // implements 키워드를 사용하여 인터페이스를 '구현'한다. (상속x)
+        class DDD implements BBB, CCC{	// 인터페이스는 다중구현이 가능하다
+        
+        	@Override
+        	public void test3() {}
+        	@Override
+        	public void test4() {}
+        	@Override
+        	public void test7() {}
+        	@Override
+        	public void test8() {}
+        	@Override
+        	public void test9() {}
+        	
+        }
+        // 상속과 동시에 인터페이스 구현이 가능하다. (단, extends 인터페이스는 안됨)
+        class EEE extends NormalClass implements BBB,CCC{
+        // NormalClass는 클래스 BBB, CCC는 인터페이스 
+        	@Override
+        	public void test7() {}
+        	@Override
+        	public void test8() {}
+        	@Override
+        	public void test9() {}
+        	@Override
+        	public void test3() {}
+        	@Override
+        	public void test4() {}
+        	
+        }
+        ```
+        
+        **+) 인터페이스 타입 객체 생성**
+        
+        ```java
+        // 인터페이스
+        public interface CreditCard { // 어떤 메서드(행동)를 사용할 건지에 대한 목차 
+        
+        	void purchasing();          // 구매결제
+        	void onlinePayments();      // 온라인 결제
+        	void cashAdvance();         // 현금인출
+        	void automaticPayments();   // 자동결제 설정
+        	void rewardPoints();        // 적립 포인트
+        	void milesAccumulation();   // 마일리지 적립
+        	void insuranceBenefits();   // 보험 혜택
+        	void emergencyServices();   // 긴급 서비스
+        	void installmentPatments(); // 할부 결제
+        }
+        ```
+        
+        - 클래스가 구현한 인터페이스의 타입의 참조형으로 이를 구현한 클래스의 객체를 생성할 수 있다.
+        - 인터페이스를 자료형으로 구현할 경우 프로그램은 더욱 유연해진다.
+        
+          **`[ 방법 ]`**
+        
+          **`인터페이스 변수명 = new 클래스명();`**
+        
+        ```java
+        // 인터페이스를 구현하는 클래스
+        class HyundaiCard implements CreditCard{
+        
+        	@Override
+        	public void purchasing() {}
+        	@Override
+        	public void onlinePayments() {}
+        	@Override
+        	public void cashAdvance() {}
+        	@Override
+        	public void automaticPayments() {}
+        	@Override
+        	public void rewardPoints() {}
+        	@Override
+        	public void milesAccumulation() {}
+        	@Override
+        	public void insuranceBenefits() {}
+        	@Override
+        	public void emergencyServices() {}
+        	@Override
+        	public void installmentPatments() {}
+        	}
+        
+        public class AbstractionEx03 {
+        
+        	public static void main(String[] args) {
+        		
+        		HyundaiCard hyundaiCard1 = new HyundaiCard(); 
+        		
+        		// 인터페이스 타입으로 객체를 생성 (좀 더 유연한 구조)
+        		CreditCard creditCard1 = new HyundaiCard(); 
+        		
+        		// 예시 1
+        		ArrayList<Integer> list1 = new ArrayList<Integer>();
+        		List<Integer> list2 = new ArrayList<Integer>();
+        		
+        		// 예시 2
+        		HashMap<String, String> map1 = new HashMap<String,String>();
+        		Map<String, String> map2 = new HashMap<String,String>();
+        				
+        	}
+        	
+        }
+        ```
+        
+        **+) 인터페이스를 구현하는 클래스**
+        
+        - 인터페이스와 인터페이스를 구현하는 클래스를 한 곳에 쓰는 것보다 분리해서 쓰기
+        - 인터페이스를 구현하는 클래스는 인터페이스 이름 + Impl(implements)를 추가하여 클래스명을 작성
+            
+            ex) AdminOrderDAO     > AdminOrderDAOImpl
+            
+            AdminGoodsService > AdminGoodsServiceImpl
+            
+        - 클래스 생성시 [interface]에서 Add클릭 > 구현할 인터페이스를 검색하여 선택 후 클래스 생성
