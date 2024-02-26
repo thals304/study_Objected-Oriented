@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class ATM {
 	
 	Scanner scan = new Scanner(System.in);
-	int identifier = -1;
+	int identifier = -1; // -1 : 회원탈퇴, 로그아웃 / 현재 로그인한 인덱스 번호
 	UserManager um = UserManager.getInstance();
 	
 	void play() {
@@ -52,17 +52,60 @@ public class ATM {
 				FileManager.getInstance().save();
 			}
 			else if (selectMenu == 2) {
-				// 구현해보시오.
+				// 구현한게 정답이 맞나? FileManager.getInstance().save();는 언제마다 해줘야 하는가? 아직 분석 못한 부분
+				if (UserManager.getInstance().userList[identifier].accCnt == 0) {
+					System.out.println("더이상 삭제할 수 없습니다.");
+					continue;
+				}
+				if (UserManager.getInstance().userList[identifier].accCnt == 1) {
+					System.out.println("[메시지] 계좌번호 '" + UserManager.getInstance().userList[identifier].acc[0].accNumber+"' 삭제되었습니다.\n");
+					UserManager.getInstance().userList[identifier] = null;
+					FileManager.getInstance().save(); // 삭제했으니 같이 수정된 파일도 저장
+				}
+				else {
+					System.out.print("삭제 하고 싶은 계좌 번호를 입력하세요 : ");
+					String deleteAccount = scan.next();
+					
+					int tempAccAccount = um.userList[identifier].accCnt;
+					int delIdx = -1;
+					for (int i = 0; i < tempAccAccount; i++) {
+						if (um.userList[identifier].acc[i].accNumber.equals(deleteAccount)) {
+							delIdx = i;
+							break;
+						}
+					}
+					
+					if (delIdx == -1) {
+						System.out.println("[메시지] 계좌번호를 확인하세요.");
+						continue;
+					}
+					else {
+						System.out.println("[메시지] 계좌번호 '" + UserManager.getInstance().userList[identifier].acc[delIdx].accNumber+"' 삭제되었습니다.\n");
+						Account[] temp = um.userList[identifier].acc;
+						um.userList[identifier].acc = new Account[tempAccAccount - 1];
+						
+						int j = 0;
+						for (int i = 0; i < tempAccAccount; i++) {
+							if (delIdx != i) {
+								um.userList[identifier].acc[j++] = temp[i];
+							}
+						}
+						temp = null;
+						um.userList[identifier].accCnt--;
+						FileManager.getInstance().save();
+					}
+				}
+				
 			}
 			else if (selectMenu == 3) {
 				AccountManager.getInstance().printAcc(identifier);
 			}
-			else if (selectMenu == 4) {
+			else if (selectMenu == 4) { // 회원 탈퇴가 계좌 메뉴에 있는 이유? 회원 탈퇴는 로그인 상태에서만 가능하므로
 				identifier = um.deleteMember(identifier);
 				break;
 			}
 			else if (selectMenu == 0) {
-				identifier = -1;
+				identifier = -1; 
 				System.out.println("로그아웃 되었습니다.");
 				break;
 			}

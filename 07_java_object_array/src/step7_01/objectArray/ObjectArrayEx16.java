@@ -15,6 +15,7 @@ package step7_01.objectArray;
 class Employee {}
 class Manager {}
 class Supervisor {}
+
 class GenericEx<T> { // T : type
 	// before
 	// Employee[] employees = new Employee[3];

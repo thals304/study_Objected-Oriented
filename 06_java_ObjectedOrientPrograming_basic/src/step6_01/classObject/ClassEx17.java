@@ -44,7 +44,7 @@ public class ClassEx17 {
 		// error : 싱글턴 사용방식은 일반 클래스 사용방식과 다름
 		// new SingleTonTest();
 		
-		System.out.println(SingleTonTest.getInstance());  // 싱글톤 디자인 패턴 호출 방식 // 주소로 나옴
+		System.out.println(SingleTonTest.getInstance());  // 주소로 나옴
 		System.out.println(SingleTonTest.getInstance());  // 같은 객체
 		System.out.println(SingleTonTest.getInstance());  // 같은 객체
 		System.out.println();

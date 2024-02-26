@@ -30,7 +30,7 @@ public class UserManager {
 	}
 	
 	
-	boolean getCheckAcc(String account) {
+	boolean getCheckAcc(String account) { // 계좌 중복 확인
 		
 		boolean isDuple = false;
 		for (int i = 0; i < userCnt; i++) {
@@ -119,7 +119,7 @@ public class UserManager {
 	
 	int deleteMember(int identifier) {
 		
-		User[] tmp = userList;
+		User[] tmp = userList; // 백업
 		userList = new User[userCnt - 1];
 		
 		int j = 0;
@@ -137,12 +137,12 @@ public class UserManager {
 
 		FileManager.getInstance().save();
 		
-		return identifier;
+		return identifier; // pop()처럼 return 값 표현해 준 것
 		
 	}
 	
 	// (테스트생성용 메서드)  : 테스트 데이타 > 더미
-	void setDummy() {
+	void setDummy() {	// 얘는 어떻게 사용하려고 하는거지? FileManager에서
 		
 		String[] ids  = {"user1"  ,  "user2",     "user3",    "user4",    "user5"};
 		String[] pws  = {"1111"   ,   "2222",      "3333",     "4444",    "5555"};

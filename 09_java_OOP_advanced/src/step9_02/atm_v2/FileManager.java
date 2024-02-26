@@ -9,20 +9,21 @@ import java.io.IOException;
 public class FileManager {
 	
 	private FileManager() {}
-	private static FileManager instance = new FileManager();
+	private static FileManager instance = new FileManager(); // 싱글턴 디자인 패턴
 	public static FileManager getInstance() {
 		return instance;
 	}
 	
 	String fileName = "ATM.txt";
-	String data = "";
-	UserManager um = UserManager.getInstance();
-	
-	void setData() {
+	String data = "";	// 초기화
+	UserManager um = UserManager.getInstance(); 
+	// 왜 FileManager 클래스에서 UserManager 객체를 생성해준거지?
+	// UserManager > User > Account 에 있는 변수를 사용하기 위해
+	void setData() { // 도대체 얘는 어디서 사용한거지? 같은 클래스에 있는 메서드에서 사용함
 		
 		data = "";
 		int userCount = um.userCnt;
-		data += userCount;
+		data += userCount; // 회원 수
 		data += "\n";
 		
 		for (int i = 0; i < userCount; i++) {
@@ -30,10 +31,10 @@ public class FileManager {
 			data += "\n";
 			data += um.userList[i].pw;
 			data += "\n";
-			data += um.userList[i].accCnt;
+			data += um.userList[i].accCnt; // 계좌 개수
 			data += "\n";
 			
-			if (um.userList[i].accCnt == 0) {
+			if (um.userList[i].accCnt == 0) { // 계좌가 0개일 때
 				data += "0\n";
 			}
 			else {
@@ -41,7 +42,7 @@ public class FileManager {
 					data += um.userList[i].acc[j].accNumber;
 					data += "/";
 					data += um.userList[i].acc[j].money;
-					if (j != um.userList[i].accCnt - 1) {
+					if (j != um.userList[i].accCnt - 1) { // 계좌번호1/돈1, 계좌번호2/돈2, 계좌번호3/돈3 로 표현하기 위함
 						data += ",";
 					}
 				}
@@ -90,7 +91,7 @@ public class FileManager {
 					data += line;
 					data += "\n";
 				}
-				
+				// setData() 구조를 잘 알아야 load도 할 수 있을거 같음
 				String[] tmp = data.split("\n");
 				um.userCnt = Integer.parseInt(tmp[0]);
 				um.userList = new User[um.userCnt];
@@ -137,8 +138,8 @@ public class FileManager {
 					j++;
 				}
 			}
-			else {
-				//um.setDummy();
+			else { // file이 존재하지 않으면 다시 setData > save
+				// um.setDummy();
 				setData();
 				save();
 			}
