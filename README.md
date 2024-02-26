@@ -1815,3 +1815,167 @@
             AdminGoodsService > AdminGoodsServiceImpl
             
         - 클래스 생성시 [interface]에서 Add클릭 > 구현할 인터페이스를 검색하여 선택 후 클래스 생성
+
+ - **다형성 (polymorphism)**
+    - 다형성은 같은 인터페이스나 부모 클래스를 상속받은 여러 객체가 그 인터페이스나 부모 클래스의 참조 타입으로 사용될 때
+    각 객체의 실제 타입에 따라 서로 다른 방식으로 동작할 수 있게 하는 객체 지향의 핵심 원칙 중 하나이다.
+    - 다형성을 구현하기 위해서는 다형성을 구현할 메소드가 포함된 모든 클래스가 같은 부모 클래스 혹은 인터페이스를 가져야 한다.
+    **(부모와 자식이 1:1 관계)**
+    - 부모 클래스 혹은 인터페이스와 자식 클래스에 같은 메소드가 있어야 하며 자식 클래스는 이 메소드를 **반드시 override 하여 사용**해야 한다.
+    (자식클래스는 부모 메서드 재정의)
+    - 부모 클래스 혹은 인터페이스 타입에 자식 클래스 타입을 대입시켜 다형성이 구현된 메소드를 실행한다.
+    
+    ```java
+    // 부모클래스 
+    class Shape {
+    	// 자녀클래스가 상속받아서 사용할 메서드 정의
+    	void draw() {}
+    	
+    }
+    
+    class Line extends Shape {
+    	
+    	// 부모의 메서드를 재정의
+    	void draw() {
+    		System.out.println("선을 그린다.");
+    	}
+    
+    }
+    
+    class Circle extends Shape{
+    	// 부모의 메서드를 재정의
+    	void draw() {
+    		System.out.println("원을 그린다.");
+    	}
+    }
+    class Rect extends Shape{
+    	// 부모의 메서드를 재정의
+    	void draw() {
+    		System.out.println("사각형을 그린다.");
+    	}
+    }
+    
+    public class PolymorphismEx02 {
+    
+    	public static void main(String[] args) {
+    
+    		// 부모클래스의 타입으로 배열을 생성하고 자식클래스로 배열의 요소를 추가
+    		
+    		Shape[] shape = new Shape[3];
+    		shape[0] = new Line();		// 업캐스팅 (upcasting)
+    		shape[1] = new Circle();
+    		shape[2] = new Rect();
+    		
+    		// draw(); 메서드의 이름은 한 개이지만 구현되는 기능은 다양함 // 메서드 재정의를 통해 1:1 관계를 만듬
+    		shape[0].draw();			// 다형성 : 모양이 많음
+    		shape[1].draw();
+    		shape[2].draw();
+    		
+    		// 참고자료 1)
+    		ArrayList<Object> test1 = new ArrayList<Object>();
+    		test1.add(100);				// 정수 데이터
+    		test1.add("문자열데이터");		// 문자열 데이터
+    		test1.add(true);	 		// boolean 데이터
+    		test1.add(new Circle()); 	// Circle 데이터 // 모든 클래스는 object를 상속받음 
+    		test1.add(new Line());		// Line 데이터
+    		
+    		// 참고자료 2)
+    		HashMap<String, Object> test2 = new HashMap<String, Object>();
+    		test2.put("data1", 100);
+    		test2.put("data2", "문자열데이터");
+    		test2.put("data3", true);
+    		test2.put("data4", new Circle());
+    		test2.put("data5", new Line());
+    		
+    	}
+    
+    }
+    ```
+    
+    - **클래스의 형변환 (업다운 캐스팅)**
+        - 자바에서 업캐스팅(Upcasting)과 다운캐스팅(Downcasting)은 객체의 형변환을 다룬다.
+        - 이러한 형변환은 상속 관계에 있는 클래스 사이에서 발생하며
+        업캐스팅과 다운캐스팅을 이해하기 위해서는 먼저 상속 관계에 있는 클래스가 있다고 전제해야 한다.
+        - 부모클래스는 객체를 생성 할때 부모클래스에 있는 자원만 생성된다.
+        - 자녀클래스는 객체를 생성 할때 부모클래스와 자녀클래스의 자원이 모두 생성된다. (1+1)
+        - 그러므로 자녀클래스는 부모클래스의 타입으로 객체를 생성 할 수 있고 부모클래스는 자녀클래스의 타입으로 객체를 생성 할 수 없다.
+        
+        ```java
+        class Base {
+        	
+        	void baseMethod() {
+        		
+        	}
+        }
+        
+        class Sub extends Base{
+        	
+        	void subMethod() {
+        		
+        	}
+        }
+        
+        public class PolymorphismEx01 {
+        
+        	public static void main(String[] args) {
+        
+        		Base base1 = new Base();	// 부모클래스 객체 생성
+        		base1.baseMethod();			// 자신의 메서드 사용
+        		
+        		Sub sub1 = new Sub();		// 자녀클래스 객체 생성
+        		sub1.baseMethod();			// 상속받은 메서드 사용
+        		sub1.subMethod(); 			// 자신의 메서드 사용
+        		
+        		System.out.println("\n================\n");
+        		
+        		// Sub base2 = new Base();	// 자녀타입으로 부모 객체 생성 불가능
+        		                            
+        		/*
+        		  
+        			# 업캐스팅 (Upcasting)
+        			
+        			- 자녀 클래스의 객체를 부모 클래스 타입으로 형변환하는 것을 의미한다. 
+        			- 명시적으로 형변환 타입을 적지 않아도 된다.
+        			- 객체의 타입이 부모형태이기 때문에 부모 클래스가 가지고 있는 메서드만 사용가능하다.
+        		 
+        		 */
+        		Base sub2 = new Sub();
+        		sub2.baseMethod(); 			// 부모타입이기 때문에 부모의 메서드만 사용가능
+        		
+        		/*
+        		  
+        			# 다운캐스팅 (Downcasting)
+        			
+        			- 업캐스팅된 객체를 다시 원래의 자녀 클래스 타입으로 형변환하는 것을 의미한다.
+        			
+        			- 명시적으로 형변환을 타입을 적어야 한다.
+        			
+        			- 부모타입으로 만들어진 자녀클래스의 타입을 다시 자녀클래스로 형변환 할 경우 다시 자녀클래스로 사용 가능하므로 
+        			  업캐스팅을 통해 숨겨진 서브 클래스의 속성이나 메소드에 다시 접근할 수 있다.
+        	 		   
+        	 		- 다운캐스팅은 타입 체크를 통해 안전하게 수행되어야 하며 잘못된 다운캐스팅은 ClassCastException을 발생시킬 수 있다.
+        		
+        		 */
+        		Sub sub3 = (Sub) sub2;
+        		sub3.baseMethod();	// 부모의 메서드 사용
+        		sub3.subMethod();	  // 자신의 메서드도 사용가능
+        		
+        		// [참고] 객체 변수 + instanceof + 타입 : 형변환이 가능한지 확인하는 메서드
+        		if(sub1 instanceof Base) {
+        			System.out.println("형변환 가능 1");
+        		}
+        		else {
+        			System.out.println("형변환 불가능1");
+        		}
+        		
+        		if(base1 instanceof Sub) {
+        			System.out.println("형변환 가능 1");
+        		}
+        		else {
+        			System.out.println("형변환 불가능1");
+        		}
+        	}
+        
+        }
+        
+        ```
