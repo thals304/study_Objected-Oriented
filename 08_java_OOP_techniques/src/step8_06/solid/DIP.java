@@ -1,4 +1,3 @@
-
 package step8_06.solid;
 
 interface CreditCard {

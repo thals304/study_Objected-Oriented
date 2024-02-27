@@ -77,7 +77,7 @@ public class LSP {
 		choi.exercise();	// 운동을 하는 메서드가 존재하고 객체의 타입이 부모, 자녀가 동일하게 수행됨
 		
 		Person park = new Park();
-		// prak.exercise(); 존재 X // 운동을 하는 메서드가 없음
+		// park.exercise(); 존재 X // 운동을 하는 메서드가 없음
 		
 	}
 
