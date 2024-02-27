@@ -52,7 +52,7 @@ public class ATM {
 				FileManager.getInstance().save();
 			}
 			else if (selectMenu == 2) {
-				// 구현한게 정답이 맞나? FileManager.getInstance().save();는 언제마다 해줘야 하는가? 아직 분석 못한 부분
+				// 구현한게 정답이 맞나? FileManager.getInstance().save();는 언제마다 해줘야 하는가? 회원 & 계좌 추가, 삭제 등에서
 				if (UserManager.getInstance().userList[identifier].accCnt == 0) {
 					System.out.println("더이상 삭제할 수 없습니다.");
 					continue;
