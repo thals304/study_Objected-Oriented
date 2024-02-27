@@ -29,7 +29,7 @@ public class AccountManager {
 		
 		String makeAccount = "";	// 계좌(accNumber)는 String 타입 // "" 또는 null로 초기화 시켜주기
 		while (true) {
-			// 마지막 ""를 해준 이유?
+			// 마지막 ""를 해준 이유? 랜덤 숫자는 int 타입이므로 ""을 추가해서 전체를 문자열 취급이 되도록
 			makeAccount = ran.nextInt(9000000) + 1000001 + "";	// [0-8999999] + 1000001 // 1000001 ~ 10000000
 			if (!um.getCheckAcc(makeAccount)){	// false , 계좌번호가 중복이 아니면
 				break;
