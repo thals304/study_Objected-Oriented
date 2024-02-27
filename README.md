@@ -1979,3 +1979,444 @@
         }
         
         ```
+
+- **솔리드 (객체 지향 설계) > SRP, OCP, LSP, ISP, DIP**
+    - **SRP (Single Responsibility Principle, 단일 책임 원칙)**
+        - 클래스는 하나의 기능만을 가지고 그 기능을 완전히 캡슐화 해야 한다는 것을 의미한다.
+        - 만약 클래스가 여러가지 작업을 책임져야 한다면 이는 버그 발생 가능성을 높인다.
+        많은 기능 중 한 가지를 변경할 때 개발자가 모르는 사이에 다른 기능에 영향을 줄 수 있기 때문이다.
+        - SRP의 목적은 **기능들을 분리**하는 것이고 이로 인해 개발자가 어떤 기능을 수정하더라도 연관 없는 기능에는 영향이 가지 않게 되는 기대 효과가 있다.
+        - 이 원칙을 따르면 코드의 재사용성과 유지보수성이 향상된다.
+        
+        ```java
+        
+        /*
+        
+        	# AsIs Model
+        
+        	해당 클래스는 사용자의 요청정보를 받아들여 페이지를 이동시키며 
+        	암호화 , 인증 , 메일전송등 인증 서비스업무 등의 두 가지 책임을 가지고 있다.
+        
+        */
+        class SRP_BadCase{
+        	
+        	void forwardMain() {
+        		System.out.println("메인화면으로 이동");
+        	}
+        	void forwardAuthentication() {
+        		System.out.println("인증화면으로 이동");
+        	}
+        	void forwardPayment() {
+        		System.out.println("결제화면으로 이동");
+        	}
+        	
+        	void cryptPassword() {
+        		System.out.println("비밀번호 암호화 로직");
+        	}
+        	void findUserPasswordUnchanged() {
+        		System.out.println("비밀번호를 변경하지 않은지 90일이 경과한 회원을 검색하는 로직");
+        	}
+        	void sendMailForAuthentication() {
+        		System.out.println("인증을 위한 이메일 전송 로직");
+        	}
+        }
+        /*
+        	# ToBe Model
+        
+        	SRP_Controller 클래스는 사용자의 요청정보를 받아들여 페이지를 이동시키는 단일 책임을 가지고
+        	SRP_Service 클래스는 암호화 , 인증 , 메일전송등 인증 서비스업무 등의 단일 책임을 가집니다. 
+        	이렇게 각 클래스가 하나의 책임만을 가지므로 SRP를 준수하게 된다. 
+        	코드의 재사용성과 유지보수성이 향상되며 미래의 변경 사항이 한 클래스에 국한되어 다른 클래스에 영향을 미치지 않게 된다.
+        
+         */
+        
+        class SRP_Controller {
+        	
+        	void forwardMain() {
+        		System.out.println("메인화면으로 이동");
+        	}
+        	void forwardAuthentication() {
+        		System.out.println("인증화면으로 이동");
+        	}
+        	void forwardPayment() {
+        		System.out.println("결제화면으로 이동");
+        	}
+        }
+        class SRP_Service {
+        	
+        	void cryptPassword() {
+        		System.out.println("비밀번호 암호화 로직");
+        	}
+        	void findUserPasswordUnchanged() {
+        		System.out.println("비밀번호를 변경하지 않은지 90일이 경과한 회원을 검색하는 로직");
+        	}
+        	void sendMailForAuthentication() {
+        		System.out.println("인증을 위한 이메일 전송 로직");
+        	}
+        }
+        ```
+        
+    
+    - **OCP (Open/Closed Principle, 개방-폐쇄 원칙)**
+        - 소프트웨어 엔티티(클래스, 모듈, 함수 등)는 확장에는 열려 있어야 하고, 수정에는 닫혀 있어야 한다는 원칙이다.
+        - 이 원칙을 따르면 **기존의 코드를 변경하지 않고도 시스템의 기능을 확장**할 수 있다.
+        - 즉 새로운 기능을 추가하고 싶을 때 기존 코드를 수정하는 대신 기존 코드를 확장 만으로 원하는 기능을 추가할 수 있어야 한다.
+        
+        ```java
+        /*
+        
+        	# AsIs Model
+        
+        	OCP_BadCase 클래스는 powerpoint와 pdf 보고서를 생성할 수 있다. 
+        	하지만 새로운 보고서 형식(예: powerpoint , pdf)을 추가하려면 makingReport 메소드를 수정해야 한다.
+        	이는 OCP를 위반한다.
+        
+        */
+        class OCP_BadCase{
+        	
+        	void makingReport(String reportType) {
+        		
+        		if (reportType.equals("excel")){
+        			System.out.println("엑셀문서 리포트 가능");
+        		}
+        //		else if (reportType.equals("powerpoint")) {
+        //		System.out.println("한글문서 리포트 가능");
+        //		}
+        		else if  (reportType.equals("hwp")) {
+        			System.out.println("한글문서 리포트 가능");
+        		}
+        //		else if  (reportType.equals("pdf")) {
+        //		System.out.println("PDF 리포트 가능");
+        //		}
+        		else if  (reportType.equals("docx")) {
+        			System.out.println("워드문서 리포트 가능");
+        		}
+        	}
+        }
+        
+        /*
+           
+           # ToBe Model
+          
+        	새로운 보고서 형식을 추가하고 싶을 때 MakeReport 인터페이스를 구현하는 새 클래스를 만들기만 하면 된다. 
+        	기존 코드(MakeReport 인터페이스와 기존의 구현 클래스)를 수정할 필요가 없으므로 OCP 원칙을 준수하게 된다.
+        
+        */
+        interface MakeReport{
+        	void makingReport();
+        }
+        class ExcelMakeReport implements MakeReport{
+        
+        	@Override
+        	public void makingReport() {
+        		System.out.println("엑셀문서 리포트 기능 ");
+        	}
+        	
+        }
+        class HwpMakeReport implements MakeReport{
+        
+        	@Override
+        	public void makingReport() {
+        		System.out.println("한글문서 리포트 기능 ");
+        	}
+        	
+        }
+        class DocxMakeReport implements MakeReport{
+        
+        	@Override
+        	public void makingReport() {
+        		System.out.println("워드문서 리포트 기능 ");
+        	}
+        	
+        }
+        class PowerpointMakeReport implements MakeReport{
+        
+        	@Override
+        	public void makingReport() {
+        		System.out.println("파워포인트문서 리포트 기능 ");
+        		
+        	}
+        	
+        }
+        class PdfMakeReport implements MakeReport{
+        
+        	@Override
+        	public void makingReport() {
+        		System.out.println("PDF문서 리포트 기능 ");
+        		
+        	}
+        	
+        }
+        ```
+        
+    - **LSP (Liskov Substitution Principle, 리스코프 치환 원칙)**
+        - **하위 타입은 언제나 상위 타입으로 대체**될 수 있어야 한다는 원칙이다.
+        - 즉 프로그램에서 부모 클래스의 인스턴스 대신에 자식 클래스의 인스턴스를 사용해도 프로그램의 정확성이 변하지 않아야 합니다.
+        
+        ```java
+        /*
+        
+        	# AsIs Model
+        	
+        	LSP_BadCase 클래스에서 eat()메서드와 , sleep() 메서드는 모든 사람에게 적용 될 수 있지만 
+        	excercise() 메서드는 모든 사람에게 적용이 될 수 없을 수도 있음에도 불구하고 항상 운동을 하도록 설정되어있다.
+        	해당 클래스를 상속받는 자식클래스에서는 예상치 못한 결과가 발생할 수 있으며 이는 LSP 원칙을 위반한다. 
+        	
+        
+        */
+        class LSP_BadCase{
+        	
+        	void eat() {
+        		System.out.println("먹는다");
+        	}
+        	void sleep() {
+        		System.out.println("잠을 잔다.");
+        	}
+        	void exercise() { // 모든 사람이 운동을 하지는 않는다.
+        		System.out.println("운동을 한다.");
+        	}
+        }
+        
+        class Lee extends LSP_BadCase {}// 운동을 하는 사람
+        class Kim extends LSP_BadCase {}// 운동을 하지 않는 사람	
+        /*
+        
+        # ToBe Model
+        
+        	Person 클래스에서는eat()메서드와 , sleep() 메서드만 구현을 하고 있고
+        	ExercisePerson 클래스에는 excercise() 운동을 하는 고유한 방법을 가지고 있다. 
+        	이로써 LSP를 준수할수 있게 되어 운동을 하지 않는 자녀클래스도 부모클래스로 대체할수 있게 만든다.
+        	
+        
+        */
+        class Person {
+        	
+        	void eat() {
+        		System.out.println("먹는다");
+        	}
+        	void sleep() {
+        		System.out.println("잠을 잔다.");
+        	}
+        }
+        class ExcercisePerson extends Person {
+        	void exercise() { 
+        		System.out.println("운동을 한다.");
+        	}
+        }
+        
+        class Choi extends ExcercisePerson{}	// 운동을 하는 사람
+        class Park extends Person {}		     	// 운동을 안하는 사람
+        
+        public class LSP {
+        
+        	public static void main(String[] args) {
+        		
+        		LSP_BadCase lee = new Lee();
+        		lee.exercise();    // 운동을 한다
+        		
+        		LSP_BadCase kim = new Kim();
+        		kim.exercise();    // 운동을 하지 않음에도 운동을 하는 메서드가 적용 (LSP 위반)
+        		
+        		System.out.println("\n================\n");
+        
+        		ExcercisePerson choi = new Choi();
+        		choi.exercise();	// 운동을 하는 메서드가 존재하고 객체의 타입이 부모, 자녀가 동일하게 수행됨
+        		
+        		Person park = new Park();
+        		// park.exercise(); 존재 X // 운동을 하는 메서드가 없음
+        		
+        	}
+        
+        }
+        ```
+        
+    - **ISP (Interface Segregation Principle, 인터페이스 분리 원칙)**
+        - 클라이언트가 자신이 사용하지 않는 메서드에 의존하지 않아야 한다는 원칙이다.
+        즉 한 개의 일반적인 인터페이스보다는 **여러 개의 구체적인 인터페이스**가 낫다는 것을 의미한다.
+        - 클래스가 서로 관계없는 기능들을 가지고 있다면 낭비가 되고 예상치 못한 버그를 발생 시킬 수 있다.
+        - 클래스는 해당 역할에 대한 액션만 수행해야 하고 이를 제외한 다른 액션은 완전히 삭제하거나 다른 곳(다른 클래스 등)으로 이동 시켜야 한다.
+        - 이 원칙은 인터페이스를 작고 잘 정의된 단위로 분리하여 클라이언트가 필요로 하는 메서드만을 구현하도록 강제한다.
+        
+        ```java
+        /*
+        	    # AsIs Model
+        	    
+        		ISP_BadCase 인터페이스는 accelerate , deAccelerate , openSunroof ,  remoteStartUp 메서드를 정의한다. 
+        		특정 클래스는 위 4가지 메서드를 모두 구현할 수 있지만 
+        		특정 클래스는 openSunroof ,  remoteStartUp 메서드를 구현을 하지 않을 수도 있다.
+        		따라서 특정 클래스는 자신이 사용하지 않는 openSunroof ,  remoteStartUp 메서드에 의존하게 되며 이는 ISP를 위반한다.
+        		
+         */
+        interface ISP_BadCase{
+        	
+        	void accelerate();
+        	void deaccelerate();
+        	void openSunroof();
+        	void remoteSrartUp();
+        }
+        // sunRoof가 없는 경우에도 sunRoof를 구현해야 함
+        class Car1 implements ISP_BadCase {
+        
+        	@Override
+        	public void accelerate() {}
+        
+        	@Override
+        	public void deaccelerate() {}
+        
+        	@Override
+        	public void openSunroof() {}
+        
+        	@Override
+        	public void remoteSrartUp() {}
+        	
+        }
+        // remoteStartUp이 없는 경우에도 remoteStartUp을 구현해야함
+        class Car2 implements ISP_BadCase{
+        
+        	@Override
+        	public void accelerate() {}
+        
+        	@Override
+        	public void deaccelerate() {}
+        
+        	@Override
+        	public void openSunroof() {}
+        
+        	@Override
+        	public void remoteSrartUp() {}
+        	
+        }
+        
+        /*
+          
+           # ToBe Model
+           
+        	Car 인터페이스는 accelerate , deAccelerate 메서드를 각각 정의한다.
+        	OpenRoofAble 인터페이스는 Car 인터페이스를 모두 구현하고 openSunroof 메서드를 정의한다. 
+        	RemoteStartUpAble 인터페이스는 Car 인터페이스를 모두 구현하고 remoteStartUp 메서드를 정의한다. 
+        	
+        	이렇게 하면 각 클라이언트는 자신이 필요로 하는 메서드에만 의존하게 되므로 ISP 원칙을 준수하게 된다.
+        
+        	ISP를 준수함으로써 시스템의 유연성과 재사용성이 향상되며 변경에 대한 영향을 최소화할 수 있다.
+        	
+         */
+        
+        interface Car{
+        	void accelerate();
+        	void deAccelerate();
+        }
+        interface OpenRoofAble extends Car {
+        	void openSunroof();
+        }
+        interface RemoteStartUPAble extends Car{
+        	void remoteSrartUp();
+        }
+        // 옵션이 필요없는 경우
+        class Car3 implements Car {
+        
+        	@Override
+        	public void accelerate() {}
+        
+        	@Override
+        	public void deAccelerate() {}
+        	
+        }
+        // Sunroof 옵션만 필요한 경우
+        class Car4 implements OpenRoofAble{
+        
+        	@Override
+        	public void accelerate() {}
+        
+        	@Override
+        	public void deAccelerate() {}
+        
+        	@Override
+        	public void openSunroof() {}
+        	
+        }
+        // RemoteStartUP 옵션만 필요한 경우
+        class Car5 implements RemoteStartUPAble{
+        
+        	@Override
+        	public void accelerate() {}
+        
+        	@Override
+        	public void deAccelerate() {}
+        
+        	@Override
+        	public void remoteSrartUp() {}
+        	
+        }
+        ```
+        
+    
+    - **DIP (Dependency Inversion Principle, 의존성 역전 원칙)**
+        - 객체지향 설계 원칙 중 하나로 고수준 모듈이 저수준 모듈에 의존해서는 안 되며 둘 다 추상화에 의존해야 한다는 원칙이다.
+        - 즉 , **세부 사항이 추상화에 의존**해야 하며 추상화는 세부 사항에 의존해서는 안 된다.
+        - 이 원칙은 시스템의 결합도를 낮추고 유연성과 확장성을 높이기 위해 사용된다.
+        
+        ```java
+        interface CreditCard {
+        	void purchasing(); 	     	 // 구매결제
+        	void automaticPayments();    // 자동결제설정
+        }
+        
+        class HyundaiCard implements CreditCard{
+        
+        	@Override
+        	public void purchasing() {}
+        
+        	@Override
+        	public void automaticPayments() {}
+        }
+        
+        class ShinhanCard implements CreditCard{
+        
+        	@Override
+        	public void purchasing() {}
+        
+        	@Override
+        	public void automaticPayments() {}
+        
+        }
+        
+        /*	
+        	  
+        	  # AsIs Model
+        	  
+        	   아래 예시에서는 HyundaiCard , ShinhanCard 클래스(저수준 모듈)와 DIP_BadCase 클래스(고수준 모듈)가 있다.
+        	   DIP_BadCase는 HyundaiCard에 직접 의존하고 있어 DIP를 위반한다. 
+        	   이 경우, 전원 스위치는 오직 HyundaiCard만 제어할 수 있으며 다른 장치(예: ShinhanCard, WooriCard)를 제어하려면 추가적인 변경이 필요하다.
+        	   
+         */
+        
+        class DIP_BadCase{
+        	
+        	HyundaiCard hyundaiCard = new HyundaiCard();
+        	// ShinhanCard shinhanCard = new ShinhanCard();
+        	
+        	void payment() {
+        		hyundaiCard.purchasing();
+        		// shinhanCard.purchasing();
+        	}
+        }
+        /*
+         
+         	 # ToBe Model
+         
+        	DIP_ToBe 클래스는 HyundaiCard, ShinhanCard 또는 어떤 CreditCard 구현체와도 동작할 수 있으며 
+        	새로운 장치를 추가하더라도 DIP_ToBe 클래스를 변경할 필요가 없다. 
+        	이렇게 DIP를 적용하면 시스템의 결합도가 낮아지고 유연성 및 확장성이 향상된다.
+        	
+        	
+         */
+        
+        class DIP_GoodsCase{
+        	
+        	CreditCard creditCard = new HyundaiCard();
+        	//                    = new ShinhanCard(); 로 바꿔주면 유연성 있게 밑에 메서드 사용 가능 // CreditCard 인터페이스가 소켓이라고 생각
+        	void payment() {
+        		creditCard.purchasing();
+        	}
+        }
+        ```
