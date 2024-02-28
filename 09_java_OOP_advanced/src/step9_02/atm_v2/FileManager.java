@@ -15,7 +15,7 @@ public class FileManager {
 	}
 	
 	String fileName = "ATM.txt";
-	String data = "";	// 초기화
+	String data = "";	// String 초기화
 	UserManager um = UserManager.getInstance(); 
 	// 왜 FileManager 클래스에서 UserManager 객체를 생성해준거지?
 	// UserManager > User > Account 에 있는 변수를 사용하기 위해
@@ -92,15 +92,34 @@ public class FileManager {
 					data += "\n";
 				}
 				// setData() 구조를 잘 알아야 load도 할 수 있을거 같음
-				String[] tmp = data.split("\n");
-				um.userCnt = Integer.parseInt(tmp[0]);
-				um.userList = new User[um.userCnt];
+				/* 
+				 	[ setData() 구조 ]
+				 	
+				 	tmp[0] 회원수(userCount)
+				 	tmp[1] 회원A 아이디(id)
+				 	tmp[2] 회원A 비밀번호(pw)
+				 	tmp[3] A계좌수(accCnt)
+				 	tmp[4] A계좌번호1/돈1, A계좌번호2/돈2, A계좌번호3/돈3
+				 +4 tmp[5] 회원B 아이디(id)
+				 	회원B 비밀번호(pw)
+				 	B계좌수(accCnt)
+				 	B계좌번호1/돈1, B계좌번호2/돈2,
+				 	.
+				 	.
+				 	.
+				 	
+				*/
+				String[] tmp = data.split("\n"); // 한 줄 한 줄로 나누고 있음
+				um.userCnt = Integer.parseInt(tmp[0]); // String > int
+				um.userList = new User[um.userCnt];	
 				for (int i = 0; i < um.userCnt; i++) {
-					um.userList[i] = new User();
+					um.userList[i] = new User();	// 각 요소에 User클래스의 변수를 할당
 				}
 				
 				int j = 0;
-				for (int i = 1; i < tmp.length; i += 4) {
+				// 왜 i += 4인거지? 회원 1명의 정보(id,pw,accCnt,acc)는 인덱스 4개에 담겨 있음
+				// 즉, 회원의 시작 인덱스는 이전 회원 시작 인덱스로부터 + 4
+				for (int i = 1; i < tmp.length; i += 4) { 
 					
 					String id = tmp[i];
 					String pw = tmp[i+1];
@@ -109,15 +128,15 @@ public class FileManager {
 					um.userList[j].id = id;
 					um.userList[j].pw = pw;
 					um.userList[j].accCnt = accCnt;
-					String accInfo = tmp[i+3];
+					String accInfo = tmp[i+3];	// 계좌는 아직 ' , ' & ' / ' 으로 split 되지 않았으므로 String에 저장
 					
-					if (accCnt == 1) {
+					if (accCnt == 1) { // 계좌1/돈1
 						String[] temp = accInfo.split("/");
 						
 						String acc = temp[0];
-						int money = Integer.parseInt(temp[1]);
+						int money = Integer.parseInt(temp[1]);	// String > int
 						
-						um.userList[j].acc[0] = new Account();
+						um.userList[j].acc[0] = new Account();	// 각 배열 요소에 Account클래스의 변수들 할당
 						um.userList[j].acc[0].accNumber = acc;
 						um.userList[j].acc[0].money = money;
 					}
@@ -139,7 +158,7 @@ public class FileManager {
 				}
 			}
 			else { // file이 존재하지 않으면 다시 setData > save
-				// um.setDummy();
+				// um.setDummy();	// 얘는 왜 있는거? 그냥 테스트 용도
 				setData();
 				save();
 			}
