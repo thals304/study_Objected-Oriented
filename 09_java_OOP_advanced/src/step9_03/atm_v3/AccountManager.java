@@ -4,7 +4,7 @@ package step9_03.atm_v3;
 public class AccountManager {
 
 	private AccountManager() {}
-	private static AccountManager instance = new AccountManager();
+	private static AccountManager instance = new AccountManager();	// 싱글턴 디자인 패턴
 	public static AccountManager getInstance() {
 		return instance;
 	}
@@ -36,7 +36,7 @@ public class AccountManager {
 		
 		String makeAccount = ATM.ran.nextInt(90000000) + 10000001 +"";
 		loginUser.accList[loginUser.accCount].number = makeAccount;
-		loginUser.accList[loginUser.accCount].money = 0;
+		loginUser.accList[loginUser.accCount].money = 0; // 기본 계좌 돈 0으로 초기화
 		
 		loginUser.accCount++;
 		System.out.println("[메세지]계좌가 생성되었습니다.\n");

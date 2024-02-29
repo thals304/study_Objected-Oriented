@@ -69,7 +69,7 @@ public class UserManager {
 	}
 
 	
-	int checkId(String id) {
+	int checkId(String id) {	// 아이디 중복 체크
 		
 		int check = -1;
 		for (int i = 0; i < userCount; i++) {
@@ -90,15 +90,15 @@ public class UserManager {
 		int checkedId = checkId(id);
 		if (checkedId != -1) {
 			System.out.println("[메세지]아이디가 중복됩니다.\n");
-			return;
+			return;	// 메서드 종료
 		}
 		
 		System.out.print("[가입]패스워드를 입력하세요 : ");
 		String password = ATM.scan.next();
-		
+		// 자료구조 - 연결리스트 추가
 		if (userCount == 0) {
 			userList = new User[1];
-			userList[0] = new User(id, password);
+			userList[0] = new User(id, password); // 각 배열 요소에 User 클래스의 변수들 할당 + 생성자 사용
 		}
 		else if (userCount > 0) {
 			User[] temp = userList;
@@ -151,18 +151,17 @@ public class UserManager {
 	void loginUser() {
 		
 		System.out.print("[로그인]아이디를 입력하세요 : ");
-		String id = ATM.scan.next();
+		String id = ATM.scan.next();	// static Scanner 호출 방식 : static클래스명.
 		
 		System.out.print("[로그인]패스워드를 입력하세요 : ");
 		String password = ATM.scan.next();
-		
 		for (int i = 0; i < userCount; i++) {
 			if (userList[i].id.equals(id) && userList[i].password.equals(password)) {
 				identifier = i;
 			}
 		}
 			
-		if (identifier == -1) {
+		if (identifier == -1) {	// 예외처리
 			System.out.println("[메세지]아이디와 패스워드가 틀렸습니다.\n");
 		}
 		else {
@@ -179,7 +178,7 @@ public class UserManager {
 	}
 	
 	
-	void afterloginMenu() {
+	void afterloginMenu() { // 기존과 달리 Main에서 계좌 메뉴를 만드는 것이 아닌 UserManager에서 만듬
 		
 		while (true) {
 			

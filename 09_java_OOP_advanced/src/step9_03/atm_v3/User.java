@@ -8,14 +8,14 @@ public class User {
 	int accCount;
 	
 	
-	User() {}
+	User() {} // 생성자1
 	
-	User(String id, String password) {
+	User(String id, String password) { // 생성자2 (id, password) // 오버로딩
 		this.id = id;
 		this.password = password;
 	}
 	
-	User(String id, String password, Account[] accList, int accCount) {
+	User(String id, String password, Account[] accList, int accCount) { // 생성자3 (id, password, accList, accCount)
 		this.id = id;
 		this.password = password;
 		this.accList = accList;

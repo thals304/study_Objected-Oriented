@@ -8,7 +8,7 @@ public class ATM {
 	static Scanner scan = new Scanner(System.in);
 	static Random ran = new Random();
 	
-	ATM() {
+	ATM() { // 자기 자신 이름으로 메서드 생성 - 생성자
 		
 		boolean isLoad = FileManager.getInstance().loadData();
 		// 테스트 데이터 생성
