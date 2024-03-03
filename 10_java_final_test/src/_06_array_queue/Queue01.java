@@ -1,6 +1,5 @@
 package _06_array_queue;
 
-
 class ArrayQueue {
 	
 	private int front;
@@ -8,7 +7,7 @@ class ArrayQueue {
 	private int queueSize;
 	private char[] itemArray;
 	
-	public ArrayQueue(int queueSize) {
+	public ArrayQueue(int queueSize) {	// 생성자
 		front = -1;
 		rear = -1;
 		this.queueSize = queueSize;
@@ -16,19 +15,19 @@ class ArrayQueue {
 	}
 	
 	
-	public boolean isEmpty() {
+	public boolean isEmpty() {	// 처음 큐는 비어있으므로 front와 rear가 같음
 		return (front == rear);
 	}
 	
 	
-	public boolean isFull() {
-		return (rear == this.queueSize-1);
+	public boolean isFull() {	
+		return (rear == this.queueSize-1); // 배열이므로 인덱스는 - 1
 	}
 	
-	
+	// 큐에 값 넣기
 	public void enQueue(char item) {
 		
-		if (isEmpty()) {
+		if (isEmpty()) {	// 비어 있는 조건을 왜 쓰지? 원형 큐에서 사
 			front = -1;
 			rear = -1;
 		}

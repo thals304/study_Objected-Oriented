@@ -1,7 +1,5 @@
 package _02_array_stack;
 
-
-
 class ArrayStack {
 	
 	private int top;
@@ -9,19 +7,19 @@ class ArrayStack {
 	private char[] itemArray;
 	
 	public ArrayStack(int stackSize) {
-		top = -1;
+		top = -1;	
 		this.stackSize = stackSize;
 		itemArray = new char[this.stackSize];
 	}
 	
 	
-	public boolean isEmpty() {
+	public boolean isEmpty() {	// 처음 stack은 비어 있음
 		return (top == -1);
 	}
 	
 	
 	public boolean isFull() {
-		return (top == this.stackSize-1);
+		return (top == this.stackSize-1); // 배열이므로 -1 해주기
 	}
 	
 	
@@ -49,18 +47,8 @@ class ArrayStack {
 		}	
 		
 	}
-	
-	
-	public void delete() {
-		if(isEmpty()) {
-			System.out.println("Deleting fail! Array Stack is empty!!");			
-		}
-		else {
-			top--;
-		}
-	}
-	
-	public char peek() {
+	// 현재 stack의 맨 위에 있는 값 return
+	public char peek() {	
 		if (isEmpty()) {
 			System.out.println("Peeking fail! Array Stack is empty!!");
 			return 0;
@@ -96,16 +84,15 @@ public class Stack01 {
 		S.printStack();
 		
 		S.push('B');
-		S.printStack();
+		System.out.println( "peek value : "+ S.peek());
 		
 		S.push('C');
 		S.printStack();
 		
 		deletedItem = S.pop();
-		if (deletedItem != 0) {
+		if (deletedItem != 0) { // 0이면 stack이 empty한 상태
 			System.out.println("deleted Item : " + deletedItem);
 		}
-		
 		S.printStack();
 		
 	}
