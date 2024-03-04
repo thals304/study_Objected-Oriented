@@ -2590,7 +2590,8 @@
     **3) 전송 계층 (Transport Layer):** OSI의 전송 계층과 동일한 역할을 수행하며, TCP와 UDP 프로토콜을 사용하여 데이터 전송을 관리합니다.
     
     **4) 응용 계층 (Application Layer):** OSI의 응용 계층과 같은 역할을 합니다. 응용 프로그램과 네트워크 서비스 간의 상호 작용을 지원하며, HTTP, FTP, SMTP 등의 프로토콜을 사용합니다.
-  
+
+   ![osi_tcp](https://github.com/thals304/study_Objected-Oriented/assets/126967336/af74ab3b-50ee-492d-9f62-aacc5696080b)
     
 - **데이터 전송 주소 체계**
     
