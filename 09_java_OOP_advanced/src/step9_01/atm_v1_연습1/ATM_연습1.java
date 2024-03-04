@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class ATM_연습1 {
 
-	static Scanner scan= new Scanner(System.in);
+	static Scanner scan = new Scanner(System.in);
 	Random ran = new Random();
 	UserManager_연습1 userManger = new UserManager_연습1();
 	int identifier = -1;
@@ -24,8 +24,12 @@ public class ATM_연습1 {
 			else if (sel == 2){
 				login();
 			}
-			else if (sel == 3) {}
-			else if (sel == 4) {}
+			else if (sel == 3) {
+				logout();
+			}
+			else if (sel == 4) {
+				leave();
+			}
 			else if (sel == 0) {
 				System.out.println("프로그램을 종료합니다");
 				break;
@@ -48,6 +52,7 @@ public class ATM_연습1 {
 			System.out.println("[메세지] 로그인 실패. 아이디를 다시 확인해 주세요");
 		}
 	}
+	
 	void logout() {
 		if (identifier == -1) { // 근데 이미 로그아웃 또는 회원 가입이 안된 아이디인건데 이 멘트를 써도 되나?
 			System.out.println("[메세지] 로그인을 하신 후에 이용하실 수 있습니다");
@@ -57,6 +62,11 @@ public class ATM_연습1 {
 			System.out.println("[메세지] 로그아웃 되었습니다");
 		}
 	}
+	
+	void leave() {
+		userManger.leave();
+	}
+	
 	void printAccountMenu() {
 		
 		while(true) {
@@ -140,6 +150,8 @@ public class ATM_연습1 {
 				break;
 			}
 			}
+		scan.close();
 		}
+	
 	}
 

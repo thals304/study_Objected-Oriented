@@ -68,5 +68,33 @@ public class UserManager_연습1 {
 		}
 		return identifier;
 	}
-
+	void leave() {
+		System.out.print("[입력] 탈퇴할 아이디 입력 :  ");
+		String id = ATM_연습1.scan.next();
+		
+		int identifier = -1;
+		for (int i = 0; i < userCount; i++) {
+			if (user[i].id.equals(id)) {
+				identifier = i;
+				break;
+			}
+		}
+		
+		if (identifier == -1) {
+			System.out.println("[메시지] 아이디를 다시 확인하세요.\n");
+			return;
+		}
+		System.out.println("ID : '" + user[identifier].id + "' 가 탈퇴되었습니다.\n" );
+		User_연습1[] temp = user;
+		user = new User_연습1[userCount - 1];
+		int j = 0;
+		for (int i = 0; i < userCount; i++) {
+			if (i != identifier) {
+				user[j] = temp[i];
+				j++;
+			}
+		}
+		temp = null;
+		userCount--;
+	}
 }
