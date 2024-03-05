@@ -2794,9 +2794,9 @@
     3. 사설 IP 주소에 특정 TCP 포트를 더한 것을 하나의 공인 IP 주소로 매핑
     4.  공인 IP 주소를 사설 IP 주소 중의 하나로 (순서는 라운드 로빈 방식을 사용) 매핑 할 수 있다.
     
-    
+    ![IMG_0127](https://github.com/thals304/study_Objected-Oriented/assets/126967336/b7b80706-0a33-46a7-addf-4d416ba2807a)
     
     LAN 밖으로 나가면  private > public 주소 변환(NAT)
     
     LAN 안으로 들어가면 public > private 주소 변환(NAT) 
-    (단, 먼저 private > public  NAT을 한번 뚫어줘야 public > private 주소 변환 가능)
+    **(단, 먼저 private > public  NAT을 한번 뚫어줘야 public > private 주소 변환 가능)**
