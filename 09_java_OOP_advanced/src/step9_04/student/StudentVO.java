@@ -1,5 +1,5 @@
 package step9_04.student;
-
+// Main에서 Controller를 가지고 StudentRepository에 가도록 하는 역할
 public class StudentVO {
 	
 	private String id;

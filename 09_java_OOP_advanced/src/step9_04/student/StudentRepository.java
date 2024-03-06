@@ -1,7 +1,7 @@
 package step9_04.student;
 
 import java.util.HashMap;
-
+// 저장소
 public class StudentRepository {
 
 	private static HashMap<String, StudentVO> stDB = new HashMap<String , StudentVO>();

@@ -1,6 +1,9 @@
 package step9_04.student;
 import java.util.Scanner;
-
+// [ web 개발 미리보기 (spring 연습) ]
+// web 개발 연결성
+// Main > VO가 중간에서 왔다갔다함 > Controller > ( StudentInsert, StudentSelect / All ) > DAO > Repository 
+// main : UI/UX , repository : DB
 public class Main {
 	
 	public static void main(String[] args) {

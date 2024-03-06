@@ -1,5 +1,5 @@
 package step9_04.student;
-
+// web의 방향만 지시하는 클래스
 public class Controller {
 	
 	private StudentDAO stDAO;
