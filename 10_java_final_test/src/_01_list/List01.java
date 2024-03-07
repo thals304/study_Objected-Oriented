@@ -2,12 +2,12 @@ package _01_list;
 /*
  * 헷갈리는 부분
  * 1.
- * ListNode temp = head;      의 의미
- *                 head.link;
+ * ListNode temp = head;      의 의미 // head : 첫 번째 노드를 가리킴
+ *                 head.link;		// head.link : head가 가리키는 노드 = 두 번째 노드
  * 2.
- * temp != null
+ * temp != null			// 현재 노드가 유효한지 (현재 null이 아닌지)
  * temp == null
- * temp.link != null
+ * temp.link != null	// 리스트의 끝을 검사하는 것 , 다음 노드로 이동하기 위한 조건
  * temp.link == null
  * 
  * 3.
@@ -38,14 +38,14 @@ class LinkedList{
 		
 		ListNode newNode = new ListNode(data); // newNode는 어차피 tail이 되므로 link는 null
 		
-		if (head == null) {
+		if (head == null) { // 노드가 0개
 			this.head = newNode;
 		}
 		else {
-			ListNode temp = head; // head 시작주소 백업
-			// 리스트의 끝을 찾는 과정 
+			ListNode temp = head; // head 시작주소 백업 (temp는 리스트의 첫번째 노드를 가리키게 됨)
+			// 현재 리스트의 끝의 노드를 찾는 과정 
 			while (temp.link != null) {	 // 연결된 다음 노드가 존재(head 노드에 연결된 주소가 null이 아닌 경우)
-				temp = temp.link;	// head에 다음 노드 주소 연결 //연결된 다음 노드로 넘어가게 해주는 건가?
+				temp = temp.link;	// head에 다음 노드 주소 연결 // 연결된 다음 노드로 넘어가게 해주는 건가?
 			}
 			temp.link = newNode; // 추가한 노드를 맨 마지막에 연결 (추가한 노드가 tail이 됨)
 			
@@ -56,20 +56,20 @@ class LinkedList{
 	// 맨 마지막 노드 삭제
 	public void deleteLastNode() {
 		
-		ListNode pre, temp;
-		if (head == null)  return; // 노드가 0개 // 메서드 종료
+		ListNode pre, temp; 
+		if (head == null)  return; // 노드 0개 = 리스트가 비어있는 경우 // 메서드 종료
 		
-		if (head.link == null) {	// 노드가 1개?
+		if (head.link == null) {	// 리스트에 노드가 1개만 있는 경우
 			head = null;
 		}
 		else {
-			pre = head; // pre에 head 시작 주소 백업
-			temp = head.link;	// head에 연결된 다음 노드의 주소?
-			while (temp.link != null) { // tail 노드의 link가 아닌 경우
-				pre = temp; // head에 temp 연결
-				temp = temp.link;  // 다음 노드 주소 연결
+			pre = head; // pre : 현재 노드의 이전 노드 // 삭제할 노드 이전 노드를 찾을 때 사용
+			temp = head.link;	// 현재 순회하고 있는 노드, 순회하면서 다음 노드로 이동할 때 사용
+			while (temp.link != null) { // 맨 마지막 노드 찾기
+				pre = temp; 
+				temp = temp.link;  // 연결된 다음 노드로 넘어가게 해줌
 			}
-			pre.link = null; // 맨 마지막 tail 노드 연결 끊기
+			pre.link = null; // 삭제할 노드의 이전 노드를 알고있으므로 이전 노드의 링크를 null로 만들어 tail이 되게함
 		}
 		
 	}
@@ -79,10 +79,10 @@ class LinkedList{
 		
 		ListNode temp = this.head;
 		
-		while (temp != null){ // ?
+		while (temp != null){ // 현재 노드가 유효한지
 			if (data == temp.getData())  
 				return temp;
-			else temp = temp.link; // 연결된 다음 노드로 넘어가게 해주는 건가?
+			else temp = temp.link; // 연결된 다음 노드로 넘어가게 해주는 것
 		}
 		
 		return  temp;
@@ -93,18 +93,18 @@ class LinkedList{
 	public void reverseList() {
 
 		// 변수 틀 : pre current next(head)
-		ListNode next = head;
+		ListNode next = head;	// 현재 순회중인 노드
 		ListNode current = null;
 		ListNode pre = null;
 		
-		while (next != null) { // head != null이 도대체 무슨 의미야? 
+		while (next != null) { // 현재 노드가 유효한지 검사 = null이 될 때까지 
 			pre = current; 
 			current = next; 
-			next = next.link; // ?
-			current.link = pre;
+			next = next.link; // 현재 노드의 다음 노드
+			current.link = pre; // 현재 노드의 링크 방향을 역순으로 변경
 		}
 		
-		head = current;
+		head = current;	// 리스트의 시작 노드를 업데이트함
 		
 	}
 	
@@ -114,10 +114,10 @@ class LinkedList{
 		ListNode temp = this.head;
 		System.out.printf("L = (");
 		
-		while (temp != null) {
+		while (temp != null) { // 현재 노드가 유효한지 
 			System.out.printf(temp.getData());
-			temp = temp.link;
-			if (temp != null) {
+			temp = temp.link;	// 다음 노드로 넘어가게 해주는 것
+			if (temp != null) { // 맨 마지막 노드 전까지 문자열 temp에 ',' 추가
 				System.out.printf(", ");
 			}			
 		}
@@ -131,7 +131,7 @@ class LinkedList{
 class ListNode {
 	
 	private String data;
-	public ListNode link; // 클래스가 데이터 타입? 왜지? 주소(링크)이기 때문에?
+	public ListNode link; // 클래스가 데이터 타입? 왜지? 다음 노드를 가리키는 포인터 = 주소(링크)이기 때문 
 	
 	public ListNode() {	// 생성자1
 		this.data = null;
