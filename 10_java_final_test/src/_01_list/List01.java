@@ -14,7 +14,7 @@ package _01_list;
  * 역순 구조
  * 
  * 4. link의 데이터 타입이 ListNode인 이유
- * 
+ * 	  다음 노드를 가리키는 포인터 = 주소(링크)이기 때문 
  * */
 class LinkedList{
 	
