@@ -1,5 +1,8 @@
 package step7_01.objectArray;
-
+/*
+ * 24.04.02 time
+ * today 소감문
+ * */
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
