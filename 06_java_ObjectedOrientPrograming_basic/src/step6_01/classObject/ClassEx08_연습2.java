@@ -1,4 +1,5 @@
 package step6_01.classObject;
+/**/
 /*
  * # 숫자이동[3단계] : 클래스 + 변수
  * 1. 숫자2는 캐릭터이다.
@@ -14,17 +15,17 @@ package step6_01.classObject;
  *  2 0 0 0 0 0 0 0 
  */
 
-/*
-class Ex08{
+
+class Ex08_연습2{
 	int[] game = {0, 0, 1, 0, 2, 0, 0, 1, 0};
 }
-*/
+
 
 
 public class ClassEx08_연습2 {
 
 	public static void main(String[] args) {
-
+		Ex08_연습2 obj = new Ex08_연습2(); // 객체 생성
 	}
 
 }

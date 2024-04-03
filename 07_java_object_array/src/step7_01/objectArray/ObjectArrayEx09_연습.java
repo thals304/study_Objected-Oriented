@@ -237,7 +237,7 @@ public class ObjectArrayEx09_연습 {
 						fr = new FileReader(file);
 						br = new BufferedReader(fr);
 						
-						String line = br.readLine();
+						String line = br.readLine(); // 파일의 첫번째 줄에 stdCnt 수가 쓰여 있음
 						int count = Integer.parseInt(line); // 문자열 > 숫자
 						StudentEx [] temp = new StudentEx[count]; // 객체 배열을 만듬
 						// 파일에 적힌 글을 봐야 더 잘 이해될 거 같음
