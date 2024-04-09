@@ -6,7 +6,7 @@ package step7_01.objectArray;
  *  분석도 그냥 클래스, 메서드, 객체 배열 생성 등이 전부라서 분석하는데도
  *  시간이 많이 걸리지 않았던 것 같다.
  * */
-class Client {
+class Client_연습2{
 
 	String id;
 	String passwd;
@@ -38,10 +38,10 @@ public class ObjectArrayEx05_연습2 {
 
 	public static void main(String[] args) {
 
-		Client[] clientList = new Client[3];  // 객체 배열 생성
+		Client_연습2[] clientList = new Client_연습2[3];  // 객체 배열 생성
 		
 		for (int i = 0; i < clientList.length; i++) {
-			clientList[i] = new Client(); // 각 배열 요소에 Client 클래스의 인스턴스들을 할당
+			clientList[i] = new Client_연습2(); // 각 배열 요소에 Client 클래스의 인스턴스들을 할당
 		}
 		// 각 클래스 변수에 직접 대입
 		clientList[0].id      = "user1";
